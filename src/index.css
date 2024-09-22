@@ -7,6 +7,22 @@
     --background-app-rgb: 255, 255, 255;
     --color-navbar: #f9f9f9;
 
+    --color-Black: #0c0c0c;
+    --color-Gray-13: #121212;
+    --color-Gray-12: #212121;
+    --color-Gray-11: #353535;
+    --color-Gray-10: #505050;
+    --color-Gray-9: #717171;
+    --color-Gray-8: #909090;
+    --color-Gray-7: #adadad;
+    --color-Gray-6: #cbcbcb;
+    --color-Gray-5: #d9d9d9;
+    --color-Gray-4: #e1e1e1;
+    --color-Gray-3: #ededed;
+    --color-Gray-2: #f9f9f9;
+    --color-Gray-1: #fafafa;
+    --color-White: #ffffff;
+
     --color-primary: #cb1b1b;
     --color-shade-6: #430909;
     --color-shade-5: #5a0c0c;
@@ -22,12 +38,24 @@
     --color-Tint-3: #f9d2d2;
     --color-Tint-2: #fce8e8;
     --color-Tint-2: #fdf1f1;
+
+    --color-Error: #c30000;
+    --color-ELight1: #ed2e2e;
+    --color-ELight2: #fff2f2;
+
+    --color-Success: #00966d;
+    --color-SLight1: #00ba88;
+    --color-SLight2: #f3fdfa;
+
+    --color-Warning: #a9791c;
+    --color-WLight1: #f4b740;
+    --color-WLight1: #fff8e1;
   }
 }
 
 @layer components {
   .btn-header {
-    @apply btn btn-outline text-btnColor hover:text-white;
+    @apply btn btn-outline text-primary hover:text-white;
   }
   .btn-entry {
     @apply btn text-white bg-btnColor border-none hover:bg-red-500;
@@ -61,14 +89,6 @@
   } */
 }
 
-body {
-  padding: 0;
-  margin: 0;
-  font-family: "shabnam";
-  min-height: 100vh;
-  user-select: none;
-}
-
 * {
   box-sizing: border-box;
   scroll-behavior: smooth;
@@ -76,4 +96,40 @@ body {
   outline: none;
   padding: 0;
   margin: 0;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "shabnam";
+  font-size: 12px;
+  min-height: 100vh;
+  user-select: none;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--color-Gray-11);
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 14px;
+}
+
+h2 {
+  font-size: 12px;
+}
+
+@media screen and (min-width: 1024px) {
+  body {
+    font-size: 1rem;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.25rem;
+  }
 }
