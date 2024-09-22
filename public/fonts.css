@@ -46,3 +46,8 @@
     url("Shabnam-Medium.ttf") format("truetype");
   font-weight: 500;
 }
+
+body,
+button {
+  font-family: "shabnam";
+}

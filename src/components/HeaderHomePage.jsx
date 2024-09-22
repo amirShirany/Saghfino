@@ -19,7 +19,7 @@ function HeaderHomepage() {
       </div>
       <div style={{ paddingTop: "100px" }}>2</div>
 
-      <div>3</div>
+      <div className="">3</div>
     </div>
 
     // <div>
