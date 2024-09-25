@@ -7,3 +7,9 @@
   background-position: center;
   background-image: url(src/assets/images/Homephoto.svg);
 }
+
+.text-underLine {
+  text-decoration-color: #cb1b1b;
+  text-decoration-line: underline;
+  text-decoration-style: var(width);
+}

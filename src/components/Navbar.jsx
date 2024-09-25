@@ -15,7 +15,7 @@ function Navbar() {
 
         <div className="flex items-center gap-x-8 ml-8">
           <p>ورود</p>
-          <button className="btn--primary btn--secondary">ثبت آگهی</button>
+          <button className="btn--primary btn--hover">ثبت آگهی</button>
         </div>
       </div>
     </div>

@@ -34,9 +34,11 @@
     @apply px-[23px] py-[11.5px] text-xs xl:text-sm rounded-lg cursor-pointer text-center whitespace-nowrap border;
   }
   .btn--secondary {
+    @apply bg-primary text-white rounded-lg h-10;
+  }
+  .btn--hover {
     @apply bg-Gr2 border-primary text-primary hover:bg-red-500 hover:text-white;
   }
-
   /* .btn--primary {
     @apply px-4 py-3 bg-primary-900 text-white hover:bg-primary-800 shadow-lg shadow-primary-300 dark:shadow-secondary-200;
   }

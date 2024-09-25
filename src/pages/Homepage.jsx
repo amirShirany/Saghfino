@@ -1,12 +1,13 @@
 import HeaderHomepage from "../components/HeaderHomePage"
-import DetailHomePage from "../components/DetailHomePage"
+import HelpHomePage from "../components/HelpHomePage"
 
 function Homepage() {
   return (
     <div className="h-screen">
       <div className="container xl:max-w-screen-2xl">
         <HeaderHomepage />
-        <DetailHomePage />
+        <HelpHomePage />
+        
       </div>
     </div>
   )

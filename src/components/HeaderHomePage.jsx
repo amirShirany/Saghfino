@@ -1,7 +1,6 @@
-import { CiSearch } from "react-icons/ci"
-import { Divider } from "@nextui-org/react"
 import Navbar from "./Navbar"
 import "./App.css"
+import HeaderSearchCard from "./HeaderSearchCard"
 
 function HeaderHomepage() {
   return (
@@ -18,25 +17,7 @@ function HeaderHomepage() {
         </div>
 
         {/* Search card */}
-        <div className="w-full max-w-[816px] bg-white rounded-xl mt-[72px]">
-          <div className="flex justify-around text-2xl font-medium my-6">
-            <button className="text-Gr11">اجاره</button>
-            <button className="text-Gr11">خرید</button>
-          </div>
-
-          <div className="flex justify-center mx-4">
-            <Divider className="max-w-[800px] text-Gr11" />
-          </div>
-
-          <div className="flex items-center text-Gr11">
-            <CiSearch className="mr-4 w-5 h-5" />
-            <input
-              className="my-3 mr-2 border-0 outline-none"
-              type="text"
-              placeholder="شهر مورد نظر را جستجو کنید"
-            />
-          </div>
-        </div>
+        <HeaderSearchCard />
       </div>
     </div>
   )

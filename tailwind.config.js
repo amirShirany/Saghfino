@@ -20,7 +20,6 @@ export default {
         Gr3: "#ededed",
         Gr2: "#f9f9f9",
         Gr1: "#fafafa",
-        White: "#ffffff",
 
         primary: "#cb1b1b",
         shade6: "#430909",
