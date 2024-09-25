@@ -31,34 +31,31 @@ const itemWork = [
 
 function DetailHomePage() {
   return (
-    <div className="bg-white text-itemColor w-screen flex justify-center">
-      <div className="w-1224">
-        <h2 className="font-bold mt-[104px] mb-8">
+    <div className="flex justify-center">
+      <div className="w-[1224px]">
+        <h2 className="mt-[104px] mb-8">
           سقفینو چطور به خانه‌دار شدن شما کمک می‌کند
         </h2>
-
-        <div className="">
-          <div className="flex justify-center gap-x-6">
-            {itemWork.map((item) => {
-              return (
-                <div
-                  key={item.id}
-                  className="w-full max-w-[392px] h-[511px] text-center border border-Gr4 bg-Gr2 rounded-2xl"
-                >
-                  <div className="mx-14 my-8">
-                    <img src={item.picItem} />
-                  </div>
-                  <div className="h-full max-h-[214px] mb-6">
-                    <p className="font-bold text-2xl mb-3">{item.Title}</p>
-                    <p className="mx-8">{item.subTitle}</p>
-                  </div>
-                  <button className="btn--secondary w-[328px] mb-8 mx-8">
-                    {item.btnWork}
-                  </button>
+        <div className="flex justify-center gap-x-6">
+          {itemWork.map((item) => {
+            return (
+              <div
+                key={item.id}
+                className="w-full max-w-[392px] h-[511px] text-center border border-Gr4 bg-Gr2 rounded-2xl"
+              >
+                <div className="mx-14 my-8">
+                  <img src={item.picItem} />
                 </div>
-              )
-            })}
-          </div>
+                <div className="h-full max-h-[214px] mb-6">
+                  <p className="font-bold text-2xl mb-3">{item.Title}</p>
+                  <p className="mx-8">{item.subTitle}</p>
+                </div>
+                <button className="btn--secondary w-[328px] mb-8 mx-8">
+                  {item.btnWork}
+                </button>
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
