@@ -32,30 +32,34 @@ const itemWork = [
 function DetailHomePage() {
   return (
     <div className="flex justify-center">
-      <div className="w-[1224px]">
-        <h2 className="mt-[104px] mb-8">
+      <div>
+        <h2 className="mt-[56px] lg:mt-[104px] mb-8">
           سقفینو چطور به خانه‌دار شدن شما کمک می‌کند
         </h2>
-        <div className="flex justify-center gap-x-6">
-          {itemWork.map((item) => {
-            return (
-              <div
-                key={item.id}
-                className="w-full max-w-[392px] h-[511px] text-center border border-Gr4 bg-Gr2 rounded-2xl"
-              >
-                <div className="mx-14 my-8">
-                  <img src={item.picItem} />
+        <div className="overflow-x-auto">
+          <div className="flex flex-row gap-x-6 h-[430px] lg:h-[530px] w-[350px] md:w-[720px] lg:w-[1224px]">
+            {itemWork.map((item) => {
+              return (
+                <div
+                  key={item.id}
+                  className=" text-center lg:w-[392px] lg:h-[511px]  border border-Gr4 bg-Gr2 rounded-2xl relative"
+                >
+                  <div className="lg:mx-14 lg:my-8 mx-20 my-6 w-[181px] h-[93px] lg:w-[280px] lg:h-[145px]">
+                    <img src={item.picItem} />
+                  </div>
+                  <div className="h-full max-h-[214px]">
+                    <h2 className="mb-3">{item.Title}</h2>
+                    <p className="mx-8">{item.subTitle}</p>
+                  </div>
+                  <div className="flex justify-center">
+                    <button className="btn--secondary min-w-[156px] lg:w-[328px] absolute lg:bottom-8 lg:left-8 lg:right-8">
+                      {item.btnWork}
+                    </button>
+                  </div>
                 </div>
-                <div className="h-full max-h-[214px] mb-6">
-                  <p className="font-bold text-2xl mb-3">{item.Title}</p>
-                  <p className="mx-8">{item.subTitle}</p>
-                </div>
-                <button className="btn--secondary w-[328px] mb-8 mx-8">
-                  {item.btnWork}
-                </button>
-              </div>
-            )
-          })}
+              )
+            })}
+          </div>
         </div>
       </div>
     </div>

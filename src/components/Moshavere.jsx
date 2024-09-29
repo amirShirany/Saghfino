@@ -1,8 +1,3 @@
-import Rectangle_51 from "../assets/images/noemelk/Rectangle_51.svg"
-import Rectangle_52 from "../assets/images/noemelk/Rectangle_52.svg"
-import Rectangle_53 from "../assets/images/noemelk/Rectangle_53.svg"
-import Rectangle_54 from "../assets/images/noemelk/Rectangle_54.svg"
-
 const itemWork = [
   {
     id: 1,
@@ -30,7 +25,7 @@ const itemWork = [
   },
 ]
 
-function HelpMelk() {
+function Moshavere() {
   return (
     <div className="flex justify-center">
       <div className="max-w-[1224px]">
@@ -63,4 +58,4 @@ function HelpMelk() {
   )
 }
 
-export default HelpMelk
+export default Moshavere

@@ -10,7 +10,7 @@ function HeaderSearchCard() {
   }
 
   return (
-    <div className="h-full max-h-[108px] w-full max-w-[816px] bg-white rounded-xl mt-[72px]">
+    <div className="h-full max-h-[108px] w-full md:w-[750px] max-w-[816px] bg-white rounded-xl mt-[72px]">
       <div className="flex justify-around text-2xl font-medium mt-[14px]">
         <div
           onClick={() => handleToggle("Option_1")}

@@ -68,25 +68,34 @@ h1,
 h2,
 h3 {
   color: #353535;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-size: 14px;
   font-weight: 700;
 }
 
-h1 {
-  font-size: 14px;
-}
-
-h2 {
-  font-size: 12px;
-}
-
 @media screen and (min-width: 1024px) {
-  body {
-    font-size: 1.25rem;
+  p {
+    font-size: 1rem;
+    font-weight: 400;
   }
   h1 {
     font-size: 54px;
+    font-weight: 700;
   }
   h2 {
     font-size: 2rem;
+  }
+  h4 {
+    font-size: 1.25rem;
   }
 }
