@@ -39,6 +39,10 @@
   .btn--hover {
     @apply bg-Gr2 border-primary text-primary hover:bg-red-500 hover:text-white;
   }
+
+  .caption--text--footer {
+    @apply text-[10px] text-Gr9 mb-[2px];
+  }
   /* .btn--primary {
     @apply px-4 py-3 bg-primary-900 text-white hover:bg-primary-800 shadow-lg shadow-primary-300 dark:shadow-secondary-200;
   }

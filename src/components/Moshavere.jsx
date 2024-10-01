@@ -1,6 +1,7 @@
 import Character from "../assets/images/moshavere/Character.svg"
 import Photo from "../assets/images/moshavere/Photo.svg"
 import Worktimepana from "../assets/images/moshavere/Worktime-pana.svg"
+import "./App.css"
 
 const itemWork = [
   {
@@ -32,20 +33,24 @@ function Moshavere() {
 
       <div className="flex flex-col items-center">
         <div className="overflow-x-auto">
-          <div className="flex flex-row md:justify-evenly gap-x-4 lg:gap-x-6 h-[240px] w-[330px] lg:h-auto md:w-[720px] lg:w-[1224px]">
+          <div className="flex flex-row md:justify-evenly gap-x-4 lg:gap-x-6 lg:h-auto md:w-[720px] lg:w-[1224px]">
             {itemWork.map((item) => {
               return (
                 <div
                   key={item.id}
-                  className="w-[156px] lg:w-[288px] text-center border border-Gr5 bg-white rounded-lg"
+                  className="w-[156px] h-auto lg:w-[288px] text-center boxShadow bg-white rounded-lg m-1"
                 >
                   <div className="flex justify-center">
-                    <img className="rounded-t-lg" src={item.picItem} />
+                    <img
+                      className="rounded-t-lg mx-auto mt-4"
+                      src={item.picItem}
+                    />
                   </div>
 
-                  <div className="lg:mb-8 mt-4 text-Gr10">
-                    <p className="font-bold">{item.meter}</p>
-                    <p className="text-base">{item.Title}</p>
+                  <div className="lg:mb-8 mt-4 mb-4 text-Gr10">
+                    <p className="lg:text-lg lg:font-bold mx-7 text-xs">
+                      {item.Title}
+                    </p>
                   </div>
                 </div>
               )
