@@ -6,6 +6,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        shadowColor: "#000000",
         Black: "#0c0c0c",
         Gr13: "#121212",
         Gr12: "#212121",

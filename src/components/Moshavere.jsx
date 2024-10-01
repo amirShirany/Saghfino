@@ -1,46 +1,45 @@
+import Character from "../assets/images/moshavere/Character.svg"
+import Photo from "../assets/images/moshavere/Photo.svg"
+import Worktimepana from "../assets/images/moshavere/Worktime-pana.svg"
+
 const itemWork = [
   {
     id: 1,
-    picItem: Rectangle_51,
-    meter: 28.9,
-    Title: "خانه مسکونی",
+    picItem: Character,
+    Title: "امکان خرید و اجاره ملک در اکثر نقاط کشور",
   },
   {
     id: 2,
-    picItem: Rectangle_52,
-    meter: 309.798,
-    Title: "آپارتمان و برج",
+    picItem: Photo,
+    Title: "مقایسه و بررسی صدها ملک، به‌راحتی و در کمترین زمان",
   },
   {
     id: 3,
-    picItem: Rectangle_53,
-    meter: 946,
-    Title: "ویلا",
-  },
-  {
-    id: 3,
-    picItem: Rectangle_54,
-    meter: 27.339,
-    Title: "تجاری و اداری",
+    picItem: Worktimepana,
+    Title: "ارتباط آسان با برترین املاک و مشاورین کشور",
   },
 ]
 
 function Moshavere() {
   return (
-    <div className="flex justify-center">
-      <div className="max-w-[1224px]">
-        <h2 className="mb-8 mt-[48px] lg:mt-[88px]">
-          در سقفینو دنبال چه نوع ملکی هستید
-        </h2>
+    <div>
+      <h2 className="lg:mt-[88px] mt-12 text-center">
+        همه به شما مشاوره می دهدند!
+      </h2>
+      <p className="mb-5 text-center">
+        اما در سقفینو مشاورین املاک کنار شما می‌مانند
+      </p>
+
+      <div className="flex flex-col items-center">
         <div className="overflow-x-auto">
-          <div className="flex justify-center gap-x-4 lg:gap-x-6 h-[214px] w-[350px] lg:h-[530px] md:w-[720px] lg:w-[1224px]">
+          <div className="flex flex-row md:justify-evenly gap-x-4 lg:gap-x-6 h-[240px] w-[330px] lg:h-auto md:w-[720px] lg:w-[1224px]">
             {itemWork.map((item) => {
               return (
                 <div
                   key={item.id}
-                  className="w-[156px] max-w-[288px] h-full max-h-[340px] text-center border border-Gr5 bg-Gr2 rounded-lg"
+                  className="w-[156px] lg:w-[288px] text-center border border-Gr5 bg-white rounded-lg"
                 >
-                  <div className="w-[156px] h-[145px] lg:w-[288px] lg:h-[239px]">
+                  <div className="flex justify-center">
                     <img className="rounded-t-lg" src={item.picItem} />
                   </div>
 

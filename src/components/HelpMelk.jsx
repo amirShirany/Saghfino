@@ -38,14 +38,14 @@ function HelpMelk() {
           در سقفینو دنبال چه نوع ملکی هستید
         </h2>
         <div className="overflow-x-auto">
-          <div className="flex justify-center gap-x-4 lg:gap-x-6 h-[214px] w-[350px] lg:h-[530px] md:w-[720px] lg:w-[1224px]">
+          <div className="flex justify-center gap-x-4 lg:gap-x-6 h-[214px] w-[350px] lg:h-[340px] md:w-[720px] lg:w-[1224px]">
             {itemWork.map((item) => {
               return (
                 <div
                   key={item.id}
-                  className="w-[156px] max-w-[288px] h-full max-h-[340px] text-center border border-Gr5 bg-Gr2 rounded-lg"
+                  className="w-[156px] lg:w-[288px] text-center border border-Gr5 bg-Gr2 rounded-lg"
                 >
-                  <div className="w-[156px] h-[145px] lg:w-[288px] lg:h-[239px]">
+                  <div className="w-[156px] h-[145px] lg:w-[287px] lg:h-[239px]">
                     <img className="rounded-t-lg" src={item.picItem} />
                   </div>
 
