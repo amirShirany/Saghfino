@@ -30,6 +30,8 @@ export default {
         shade2: "#9e1515",
         shade1: "#b41818",
 
+        bColorInput: "#2F80ED",
+
         hColor: "#EDEDED", // Custom color for Head
         colorHeading: "#505050",
         btnColor: "#CB1B1B",

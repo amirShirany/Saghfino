@@ -8,6 +8,7 @@ import { Divider } from "@nextui-org/react"
 function Footer() {
   return (
     <div>
+      {/* ........................................ */}
       {/* DesktopVersion */}
       <div className="bg-Gr2 px-5 mt-[104px] hidden md:block w-screen">
         <h1 className="text-center pt-12 text-3xl font-bold mb-1">
@@ -114,7 +115,7 @@ function Footer() {
         />
       </div>
 
-      {/* ........................................................ */}
+      {/* ........................................ */}
       {/* MobileVersion */}
       <div className="bg-Gr2 px-5 mt-14 md:hidden">
         {/* 1 */}
