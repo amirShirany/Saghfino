@@ -7,7 +7,7 @@ import { Divider } from "@nextui-org/react"
 
 function Footer() {
   return (
-    <div>
+    <div className="w-full flex justify-center">
       {/* ........................................ */}
       {/* DesktopVersion */}
       <div className="bg-Gr2 px-5 mt-[104px] hidden md:block w-screen">
