@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
-import { IoIosTimer } from "react-icons/io"
 import Logo from "../../assets/images/Logo.svg"
 import CloseCircle from "../../assets/images/CloseCircle.svg"
 
@@ -8,7 +7,7 @@ function Login() {
   const [phone, setPhone] = useState("")
   const [rulesAccepted, setRulesAccepted] = useState(false)
   const [isOtpSent, setIsOtpSent] = useState(false)
-  const [time, setTime] = useState(120) // 2 minutes in seconds
+  let [time, setTime] = useState(120) // 2 minutes in seconds
   const [otp, setOtp] = useState("")
 
   // console.log(isOtpSent, "...")
@@ -30,8 +29,7 @@ function Login() {
   }
 
   //handlePhonenumber
-  const handlePhonenumber = (e) => {
-    e.preventDefault()
+  const handlePhonenumber = () => {
     if (!rulesAccepted) {
       alert("با قوانین موافقت نشده است")
     } else if (phone === "09137983097" && rulesAccepted) {
@@ -80,121 +78,129 @@ function Login() {
     // Add additional submission logic here...
   }
 
+  //handleEditPhonenumber
+  const handleEditPhonenumber = () => {
+    setIsOtpSent(!isOtpSent)
+    setTime(120)
+  }
+
   return (
-    <div>
-      <div className="flex flex-col justify-center items-center relative">
-        <img
-          className="absolute left-4 top-4"
-          src={CloseCircle}
-          alt="CloseCircle"
-        />
-        <img className="mt-14 w-20" src={Logo} alt="Logo_image" />
-
-        {!isOtpSent && (
-          <>
-            <h1 className="mt-16 text-Gr12">ورود/ثبت نام</h1>
-            <p className="text-Gr11 mt-16">
-              لطفا برای ورود یا ثبت نام شماره موبایل خود را وارد کنید
-            </p>
-            <input
-              type="text"
-              placeholder="---------09"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="w-80 mt-10 py-1 text-xl border border-bColorInput rounded-lg shadowInput text-center"
-            />
-
-            <div className="flex mt-4 -mr-28">
+    <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center md:w-[600px] md:h-96 relative">
+        <div className="flex flex-col justify-center items-center">
+          <img
+            className="absolute left-4 top-4"
+            src={CloseCircle}
+            alt="CloseCircle"
+          />
+          <img className="mt-14 w-20" src={Logo} alt="Logo_image" />
+          {!isOtpSent && (
+            <>
+              <h1 className="mt-16 md:text-2xl text-Gr12">ورود/ثبت نام</h1>
+              <p className="text-Gr11 mt-16">
+                لطفا برای ورود یا ثبت نام شماره موبایل خود را وارد کنید
+              </p>
               <input
-                type="checkbox"
-                checked={rulesAccepted} // The checkbox is controlled
-                onChange={handleCheckboxChange}
-                className="border border-Gr7 rounded-full w-4"
+                type="text"
+                placeholder="---------09"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="w-80 mt-10 py-1 text-xl border border-bColorInput rounded-lg shadowInput text-center"
               />
-              <p className="mr-1">
-                با{" "}
-                <Link
-                  href="https://www.google.com/"
-                  target="_blank"
-                  className="text-primary hover:underline"
-                >
-                  قوانین سقفینو
-                </Link>{" "}
-                موافق هستم
-              </p>
-            </div>
-            <button
-              onClick={handlePhonenumber}
-              className="btn--primary btn--secondary w-80 mt-16"
-            >
-              ورود
-            </button>
-          </>
-        )}
 
-        {/* If the otp was valid */}
-        {isOtpSent && (
-          <>
-            <h1 className="mt-16 text-Gr12">کدتایید</h1>
-            <p className="text-Gr11 mt-16">
-              کد ارسال‌شده به شماره 09137983097 را وارد کنید
-            </p>
-            <p
-              onClick={() => setIsOtpSent(!isOtpSent)}
-              className="text-Gr9 mb-8 cursor-pointer"
-            >
-              ویرایش شماره موبایل
-            </p>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              {[...Array(5)].map((_, index) => (
+              <div className="flex mt-4 -mr-28">
                 <input
-                  key={index}
-                  type="text"
-                  maxLength="1"
-                  ref={(el) => (inputs.current[index] = el)} // Store reference to each input
-                  onChange={(e) => handleChange(e, index)}
-                  onFocus={() => handleFocus(index)}
-                  style={{
-                    width: "50px",
-                    height: "50px",
-                    textAlign: "center",
-                    fontSize: "24px",
-                    margin: "0 5px",
-                    borderRadius: "5px",
-                    border: "2px solid #ccc",
-                    outline: "none",
-                    transition: "border-color 0.3s",
-                  }}
-                  onBlur={(e) => {
-                    if (e.target.value === "") {
-                      e.target.style.border = "2px solid red" // Indicate empty field
-                    } else {
-                      e.target.style.border = "2px solid #ccc" // Reset border
-                    }
-                  }}
-                  onFocus={(e) => (e.target.style.border = "2px solid #66afe9")} // Change border on focus
+                  type="checkbox"
+                  checked={rulesAccepted} // The checkbox is controlled
+                  onChange={handleCheckboxChange}
+                  className="border border-Gr7 rounded-full w-4"
                 />
-              ))}
-            </div>
+                <p className="mr-1">
+                  با{" "}
+                  <Link
+                    href="https://www.google.com/"
+                    target="_blank"
+                    className="text-primary hover:underline"
+                  >
+                    قوانین سقفینو
+                  </Link>{" "}
+                  موافق هستم
+                </p>
+              </div>
+              <button
+                onClick={handlePhonenumber}
+                className="btn--primary btn--secondary w-80 mt-16"
+              >
+                ورود
+              </button>
+            </>
+          )}
 
-            <div className="flex items-center mt-4">
-              <IoIosTimer />
-              <p className="text-primary mx-[2px]">
-                {time > 0
-                  ? formatTime(time)
-                  : setIsOtpSent(!isOtpSent) && time === 15}
+          {/* If the otp was valid */}
+          {isOtpSent && (
+            <>
+              <h1 className="mt-16 md:text-2xl text-Gr12">کدتایید</h1>
+              <p className="text-Gr11 mt-16">
+                کد ارسال‌شده به شماره 09137983097 را وارد کنید
               </p>
-              <p>تا دریافت مجدد کد</p>
-            </div>
+              <p
+                onClick={handleEditPhonenumber}
+                className="text-Gr9 mb-8 cursor-pointer"
+              >
+                ویرایش شماره موبایل
+              </p>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                {[...Array(5)].map((_, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    maxLength="1"
+                    ref={(el) => (inputs.current[index] = el)} // Store reference to each input
+                    onChange={(e) => handleChange(e, index)}
+                    onFocus={() => handleFocus(index)}
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      textAlign: "center",
+                      fontSize: "24px",
+                      margin: "0 5px",
+                      borderRadius: "5px",
+                      border: "2px solid #ccc",
+                      outline: "none",
+                      transition: "border-color 0.3s",
+                    }}
+                    onBlur={(e) => {
+                      if (e.target.value === "") {
+                        e.target.style.border = "2px solid red" // Indicate empty field
+                      } else {
+                        e.target.style.border = "2px solid #ccc" // Reset border
+                      }
+                    }}
+                    onFocus={(e) =>
+                      (e.target.style.border = "2px solid #66afe9")
+                    } // Change border on focus
+                  />
+                ))}
+              </div>
 
-            <button
-              onClick={handleSubmitOtp}
-              className="btn--primary btn--secondary w-80 mt-16"
-            >
-              تایید
-            </button>
-          </>
-        )}
+              <div className="flex items-center mt-4">
+                <p className="text-primary mx-[2px]">
+                  {time > 0
+                    ? formatTime(time)
+                    : setIsOtpSent(!isOtpSent) && time === 15}
+                </p>
+                <p>تا دریافت مجدد کد</p>
+              </div>
+
+              <button
+                onClick={handleSubmitOtp}
+                className="btn--primary btn--secondary w-80 mt-16"
+              >
+                تایید
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   )
