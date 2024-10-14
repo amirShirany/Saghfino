@@ -8,37 +8,30 @@ function Login() {
   const [phone, setPhone] = useState("")
   const [rulesAccepted, setRulesAccepted] = useState(false)
   const [isOtpSent, setIsOtpSent] = useState(false)
+  const [time, setTime] = useState(120) // 2 minutes in seconds
   const [otp, setOtp] = useState("")
-  const [timeLeft, setTimeLeft] = useState(15) // 2 minutes in seconds
 
-  console.log(isOtpSent, "...")
+  // console.log(isOtpSent, "...")
 
   useEffect(() => {
-    // Exit early if we reach 0
-    if (timeLeft === 0) {
-      return
+    if (time > 0 && isOtpSent) {
+      const timerId = setInterval(() => {
+        setTime(time - 1)
+      }, 1000)
+      return () => clearInterval(timerId)
     }
-    // Set up the interval to update the timer every second
-
-    const intervalId = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime - 1)
-    }, 1000)
-
-    // Clear the interval on component unmount
-    return () => clearInterval(intervalId)
-  }, [timeLeft])
+  }, [time, isOtpSent])
 
   // Format time as MM:SS
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60)
     const remainingSeconds = seconds % 60
-    return `${String(minutes).padStart(2, "0")}:${String(
-      remainingSeconds
-    ).padStart(2, "0")}`
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`
   }
 
   //handlePhonenumber
-  const handleSendOtp = () => {
+  const handlePhonenumber = (e) => {
+    e.preventDefault()
     if (!rulesAccepted) {
       alert("با قوانین موافقت نشده است")
     } else if (phone === "09137983097" && rulesAccepted) {
@@ -131,7 +124,7 @@ function Login() {
               </p>
             </div>
             <button
-              onClick={handleSendOtp}
+              onClick={handlePhonenumber}
               className="btn--primary btn--secondary w-80 mt-16"
             >
               ورود
@@ -187,9 +180,9 @@ function Login() {
             <div className="flex items-center mt-4">
               <IoIosTimer />
               <p className="text-primary mx-[2px]">
-                {timeLeft > 0
-                  ? formatTime(timeLeft)
-                  : setIsOtpSent(!isOtpSent) && timeLeft === 15}
+                {time > 0
+                  ? formatTime(time)
+                  : setIsOtpSent(!isOtpSent) && time === 15}
               </p>
               <p>تا دریافت مجدد کد</p>
             </div>
