@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Button, useDisclosure } from "@nextui-org/react"
 import Logo from "../assets/images/Logo.svg"
 import hamberMenu from "../assets/images/hamberMenu.svg"
@@ -6,9 +7,16 @@ import "./App.css"
 
 function Navbar() {
   const { isOpen, onOpenChange, onOpen } = useDisclosure()
+  const [user, setUser] = useState("ورود")
+
   return (
     <div className="flex justify-center">
-      <Login onOpen={onOpen} onOpenChange={onOpenChange} isOpen={isOpen} />
+      <Login
+        onOpen={onOpen}
+        onOpenChange={onOpenChange}
+        isOpen={isOpen}
+        setUser={setUser}
+      />
       <div className="w-svw md:hidden py-3 flex justify-between items-center bg-white">
         <img className="mr-8" src={hamberMenu} />
         <img className="mr-8" src={Logo} />
@@ -32,7 +40,7 @@ function Navbar() {
               className="md:text-sm lg:text-xl pb-1 hover:cursor-pointer"
               onPress={onOpen}
             >
-              ورود
+              {user}
             </Button>
             <button className="btn--primary btn--hover">ثبت آگهی</button>
           </div>

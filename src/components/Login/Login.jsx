@@ -2,10 +2,11 @@ import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import Logo from "../../assets/images/Logo.svg"
 import CloseCircle from "../../assets/images/CloseCircle.svg"
-import { Modal, ModalContent, Image } from "@nextui-org/react"
+import { Modal, ModalContent, Image, useDisclosure } from "@nextui-org/react"
 import "../App.css"
 
-function Login({ onOpen, isOpen, onOpenChange }) {
+function Login({ onOpen, isOpen, onOpenChange, setUser }) {
+  const { onClose } = useDisclosure()
   const [phone, setPhone] = useState("")
   const [rulesAccepted, setRulesAccepted] = useState(false)
   const [isOtpSent, setIsOtpSent] = useState(false)
@@ -74,6 +75,8 @@ function Login({ onOpen, isOpen, onOpenChange }) {
       // Example OTP
       alert(`OTP ارسال شد: ${otp}`)
       localStorage.setItem("otp", otp)
+      setUser("امیرحسین")
+      onClose
     } else {
       alert("کد نامعتبر است، لطفاً دوباره امتحان")
     }
@@ -88,6 +91,7 @@ function Login({ onOpen, isOpen, onOpenChange }) {
 
   return (
     <div>
+      {/* <p>{user}</p> */}
       <Modal
         backdrop="blur"
         isOpen={isOpen}
