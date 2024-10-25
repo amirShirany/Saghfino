@@ -2,7 +2,13 @@ import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import Logo from "../../assets/images/Logo.svg"
 import CloseCircle from "../../assets/images/CloseCircle.svg"
-import { Modal, ModalContent, Image, useDisclosure } from "@nextui-org/react"
+import {
+  Modal,
+  ModalContent,
+  Image,
+  useDisclosure,
+  Button,
+} from "@nextui-org/react"
 import "../App.css"
 
 function Login({ onOpen, isOpen, onOpenChange, setUser }) {
@@ -74,9 +80,9 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
     if (otp === "12345") {
       // Example OTP
       alert(`OTP ارسال شد: ${otp}`)
-      localStorage.setItem("otp", otp)
+      localStorage.setItem("user", "امیرحسین")
       setUser("امیرحسین")
-      onClose
+      setTime(0)
     } else {
       alert("کد نامعتبر است، لطفاً دوباره امتحان")
     }
@@ -218,17 +224,18 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
                           ? formatTime(time)
                           : setIsOtpSent(!isOtpSent) &
                             setPhone("") &
-                            setTime(120)}
+                            setTime(7)}
                       </p>
                       <p>تا دریافت مجدد کد</p>
                     </div>
 
-                    <button
+                    <Button
+                      className="bg-primary text-white w-80 mt-16 md:mt-10"
                       onClick={handleSubmitOtp}
-                      className="btn--primary btn--secondary w-80 mt-16 md:mt-10"
+                      onPress={onClose}
                     >
                       تایید
-                    </button>
+                    </Button>
                   </>
                 )}
               </div>

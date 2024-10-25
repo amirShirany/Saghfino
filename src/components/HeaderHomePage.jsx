@@ -4,7 +4,7 @@ import HeaderSearchCard from "./HeaderSearchCard"
 
 function HeaderHomepage() {
   return (
-    <div className="svg-background">
+    <div className="svg-home-background">
       <div className="flex flex-col justify-center items-center text-center">
         <Navbar />
 

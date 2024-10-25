@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   Button,
   useDisclosure,
@@ -6,8 +6,8 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-  cn,
 } from "@nextui-org/react"
+import { useNavigate } from "react-router-dom"
 import { IoDocumentTextOutline } from "react-icons/io5"
 import { CiUser } from "react-icons/ci"
 import { TbBadge } from "react-icons/tb"
@@ -19,8 +19,31 @@ import "./App.css"
 
 function Navbar() {
   const { isOpen, onOpenChange, onOpen } = useDisclosure()
-  const [user, setUser] = useState("ورود")
+  const [user, setUser] = useState("")
+  const navigate = useNavigate()
+  console.log("userr:", localStorage.getItem("user"))
 
+  useEffect(
+    () => setUser(localStorage.getItem("user")), //for keep value between refresh
+    []
+  )
+
+  // useEffect(() => {
+  //   if (user !== "") {
+  //     localStorage.getItem("user")
+  //   }
+  // }, [loc])
+
+  const handleLogout = () => {
+    localStorage.clear("user")
+    setUser("")
+  }
+
+  const handleAdvertisement = () => {
+    if (user) {
+      navigate("/advertisement")
+    } else alert("لطفا ثبت نام کنید")
+  }
   return (
     <div>
       <Login
@@ -47,17 +70,7 @@ function Navbar() {
           </div>
 
           <div className="flex items-center gap-x-8 ml-8">
-            {user == "ورود" ? (
-              <>
-                <Button
-                  variant="light"
-                  className="md:text-sm lg:text-xl pb-1 hover:cursor-pointer"
-                  onPress={onOpen}
-                >
-                  {user}
-                </Button>
-              </>
-            ) : (
+            {user === "امیرحسین" ? (
               <>
                 <Dropdown className="shadow-none mt-9">
                   <DropdownTrigger>
@@ -73,7 +86,7 @@ function Navbar() {
                     variant="faded"
                     aria-label="Dropdown menu with icons"
                   >
-                    <DropdownItem key="new" startContent={<CiUser />}>
+                    <DropdownItem key="user" startContent={<CiUser />}>
                       پنل کاربر
                     </DropdownItem>
                     <DropdownItem
@@ -82,11 +95,12 @@ function Navbar() {
                     >
                       آگهی های من
                     </DropdownItem>
-                    <DropdownItem key="edit" startContent={<TbBadge />}>
+                    <DropdownItem key="Advertising" startContent={<TbBadge />}>
                       نشان ها
                     </DropdownItem>
                     <DropdownItem
-                      key="delete"
+                      key="exit"
+                      onClick={() => handleLogout()}
                       className="text-primary"
                       startContent={<IoExitOutline />}
                     >
@@ -95,10 +109,20 @@ function Navbar() {
                   </DropdownMenu>
                 </Dropdown>
               </>
+            ) : (
+              <>
+                <Button
+                  variant="light"
+                  className="md:text-sm lg:text-xl pb-1 hover:cursor-pointer"
+                  onPress={onOpen}
+                >
+                  ورود
+                </Button>
+              </>
             )}
             <button
               className="btn--primary btn--hover"
-              // onClick={}
+              onClick={handleAdvertisement}
             >
               ثبت آگهی
             </button>

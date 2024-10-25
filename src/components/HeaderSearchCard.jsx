@@ -43,7 +43,7 @@ function HeaderSearchCard() {
       <div className="flex items-center text-Gr11">
         <CiSearch className="mr-4 w-5 h-5" />
         <input
-          className="mr-2 mb-3 mt-[10px] border-0 outline-none"
+          className="pr-2 mb-3 mt-[10px] border-0 outline-none"
           type="text"
           placeholder="شهر مورد نظر را جستجو کنید"
         />
