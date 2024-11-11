@@ -116,7 +116,7 @@ function Navbar() {
                   className="md:text-sm lg:text-xl pb-1 hover:cursor-pointer"
                   onPress={onOpen}
                 >
-                  ورود
+                  ثبت نام
                 </Button>
               </>
             )}
