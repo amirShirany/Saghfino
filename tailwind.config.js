@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 import { nextui } from "@nextui-org/theme"
-import { fontFamily } from "tailwindcss/defaultTheme"
 export default {
   content: [
     "./index.html",
@@ -48,14 +47,12 @@ export default {
       fontSize: {
         "32px": "54px", // Create a custom font size of 32px
       },
+      fontFamily: { shabnam: ["Shabnam"] },
       margin: {
         473: "30rem", // Adds a custom margin of 473px
       },
       width: {
         1224: "76rem",
-      },
-      fontFamily: {
-        sans: ["shabnam", ...fontFamily.sans],
       },
     },
   },

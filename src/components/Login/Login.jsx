@@ -102,8 +102,7 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
         backdrop="blur"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        className="h-screen md:h-[450px] relative"
-      >
+        className="h-screen md:h-[450px] relative">
         <ModalContent>
           {(onClose) => (
             <>
@@ -148,8 +147,7 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
                         <Link
                           href="https://www.google.com/"
                           target="_blank"
-                          className="text-primary hover:underline"
-                        >
+                          className="text-primary hover:underline">
                           قوانین سقفینو
                         </Link>{" "}
                         موافق هستم
@@ -157,8 +155,7 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
                     </div>
                     <button
                       onClick={handlePhonenumber}
-                      className="btn--primary btn--secondary w-80 mt-16 md:mb-6"
-                    >
+                      className="btn--primary btn--secondary w-80 mt-16 md:mb-6">
                       ورود
                     </button>
                   </>
@@ -175,16 +172,14 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
                     </p>
                     <p
                       onClick={handleEditPhonenumber}
-                      className="text-Gr9 mb-8 cursor-pointer"
-                    >
+                      className="text-Gr9 mb-8 cursor-pointer">
                       ویرایش شماره موبایل
                     </p>
                     <div
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
-                      }}
-                    >
+                      }}>
                       {[...Array(5)].map((_, index) => (
                         <input
                           key={index}
@@ -232,8 +227,7 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
                     <Button
                       className="bg-primary text-white w-80 mt-16 md:mt-10"
                       onClick={handleSubmitOtp}
-                      onPress={onClose}
-                    >
+                      onPress={onClose}>
                       تایید
                     </Button>
                   </>
