@@ -54,14 +54,14 @@
 .input-style {
   width: 18.5rem;
   height: 2rem;
-  @media (min-width: 1024px) {
-    height: 3rem;
-    width: 17.6rem;
-  }
   color: #353535;
   border: 1px solid #adadad;
   border-radius: 8px;
   font-size: 14px;
+  @media (min-width: 1024px) {
+    height: 3rem;
+    width: 17.6rem;
+  }
 }
 
 .input-border::placeholder {
