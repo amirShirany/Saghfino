@@ -1,9 +1,9 @@
-import FirstAdvertise from "../components/Advertise/FirstAdvertise"
+import FirstAdv from "../components/Advertise/FirstAdv"
 
 function Advertisement() {
   return (
     <div className="container xl:max-w-screen-2xl">
-      <FirstAdvertise />
+      <FirstAdv />
     </div>
   )
 }
