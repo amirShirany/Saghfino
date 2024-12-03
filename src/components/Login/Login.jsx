@@ -1,23 +1,25 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
+import toast from "react-hot-toast"
 import Logo from "../../assets/images/Logo.svg"
 import CloseCircle from "../../assets/images/CloseCircle.svg"
-import {
-  Modal,
-  ModalContent,
-  Image,
-  useDisclosure,
-  Button,
-} from "@nextui-org/react"
+import { Modal, ModalContent, Image, Button } from "@nextui-org/react"
 import "../App.css"
 
-function Login({ onOpen, isOpen, onOpenChange, setUser }) {
-  const { onClose } = useDisclosure()
+function Login({
+  isOpen,
+  onOpenChange,
+  userName,
+  setUserName,
+  setFinalUserName,
+}) {
   const [phone, setPhone] = useState("")
   const [rulesAccepted, setRulesAccepted] = useState(false)
   const [isOtpSent, setIsOtpSent] = useState(false)
   let [time, setTime] = useState(120) // 2 minutes in seconds
-  // const [otp, setOtp] = useState("")
+
+  // const [otp, setOtp] = useState("") //to save otp code!
   console.log(isOtpSent, "...")
 
   useEffect(() => {
@@ -39,19 +41,21 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
   //handlePhonenumber
   const handlePhonenumber = () => {
     if (!rulesAccepted) {
-      alert("با قوانین موافقت نشده است")
-    } else if (phone === "09137983097" && rulesAccepted) {
+      toast.error("با قوانین موافقت نشده است")
+    } else if (userName === "") {
+      toast.error("نام و نام خانوادگی خود را وارد کنید")
+    } else if (phone === "09137983097") {
       // console.log(`Sending OTP to ${phone}`)
+      toast.success("کد تایید برای شما ارسال شد")
       setIsOtpSent(true)
     } else {
-      alert("لطفا یک شماره تلفن معتبر وارد کنید")
+      toast.error("لطفا یک شماره تلفن معتبر وارد کنید")
     }
   }
 
   //handleCheckbox
   const handleCheckboxChange = () => {
     setRulesAccepted(!rulesAccepted)
-    console.log(rulesAccepted, "ddd")
   }
 
   //handleSetOTP...........................
@@ -60,13 +64,13 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
     const value = e.target.value
 
     // Move to the next input if a value is entered
-    if (value && index < inputs.current.length - 1) {
-      inputs.current[index + 1].focus()
+    if (value && index < inputs.current.length + 1) {
+      inputs.current[index - 1].focus()
     }
 
     // Move to the previous input if backspace is pressed and the field is empty
-    if (value === "" && index > 0) {
-      inputs.current[index - 1].focus()
+    if (value === "" && index < 4) {
+      inputs.current[index + 1].focus()
     }
   }
 
@@ -77,14 +81,15 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
 
   const handleSubmitOtp = () => {
     const otp = inputs.current.map((input) => input.value).join("")
-    if (otp === "12345") {
-      // Example OTP
-      alert(`OTP ارسال شد: ${otp}`)
-      localStorage.setItem("user", "امیرحسین")
-      setUser("امیرحسین")
+    // Example OTP
+    if (otp === "54321") {
+      toast.success("ورود با موفقیت انجام شد!")
+      localStorage.setItem("userName", userName)
+      setFinalUserName(userName)
       setTime(0)
     } else {
-      alert("کد نامعتبر است، لطفاً دوباره امتحان")
+      toast.error("کد نامعتبر است.لطفادوباره تلاش کنید!")
+      setTime(0)
     }
     // Add additional submission logic here...
   }
@@ -95,14 +100,18 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
     setTime(120)
   }
 
+  //handleUsername for holding the current username
+  const handleUsername = (event) => {
+    setUserName(event.target.value)
+  }
+
   return (
     <div>
-      {/* <p>{user}</p> */}
       <Modal
         backdrop="blur"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        className="h-screen md:h-[450px] relative">
+        className="h-screen md:h-[500px] relative">
         <ModalContent>
           {(onClose) => (
             <>
@@ -127,6 +136,13 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
                     <p className="text-Gr11 mt-16">
                       لطفا برای ورود یا ثبت نام شماره موبایل خود را وارد کنید
                     </p>
+                    <input
+                      type="text"
+                      placeholder="نام و نام خانوادگی"
+                      value={userName}
+                      onChange={handleUsername}
+                      className="w-80 mt-10 py-1 text-xl border border-bColorInput rounded-lg shadowInput text-center"
+                    />
                     <input
                       type="text"
                       placeholder="---------09"
@@ -155,7 +171,7 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
                     </div>
                     <button
                       onClick={handlePhonenumber}
-                      className="btn--primary btn--secondary w-80 mt-16 md:mb-6">
+                      className="btn--primary btn--secondary py-0 w-80 mt-16 md:mb-6">
                       ورود
                     </button>
                   </>
@@ -219,13 +235,13 @@ function Login({ onOpen, isOpen, onOpenChange, setUser }) {
                           ? formatTime(time)
                           : setIsOtpSent(!isOtpSent) &
                             setPhone("") &
-                            setTime(7)}
+                            setTime(120)}
                       </p>
                       <p>تا دریافت مجدد کد</p>
                     </div>
 
                     <Button
-                      className="bg-primary text-white w-80 mt-16 md:mt-10"
+                      className="bg-primary text-white w-80 mt-20 md:mt-28"
                       onClick={handleSubmitOtp}
                       onPress={onClose}>
                       تایید

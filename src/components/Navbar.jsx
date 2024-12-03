@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import {
   Button,
   useDisclosure,
@@ -15,42 +15,45 @@ import { IoExitOutline } from "react-icons/io5"
 import Logo from "../assets/images/Logo.svg"
 import hamberMenu from "../assets/images/hamberMenu.svg"
 import Login from "./Login/Login"
+import toast from "react-hot-toast"
 import "./App.css"
 
 function Navbar() {
   const { isOpen, onOpenChange, onOpen } = useDisclosure()
-  const [user, setUser] = useState("")
-  const navigate = useNavigate()
-  console.log("userr:", localStorage.getItem("user"))
-
-  useEffect(
-    () => setUser(localStorage.getItem("user")), //for keep value between refresh
-    []
+  const [finalUserName, setFinalUserName] = useState(
+    localStorage.getItem("userName")
   )
+  const [UserName, setUserName] = useState("") //Auxiliary variable for holding the current username
+  const navigate = useNavigate()
 
+  //for keep value between refresh with useEffect
   // useEffect(() => {
-  //   if (user !== "") {
-  //     localStorage.getItem("user")
+  //   const storedUserName = localStorage.getItem("userName")
+  //   if (storedUserName) {
+  //     setUserName(storedUserName)
   //   }
-  // }, [loc])
+  // }, [userName])
 
   const handleLogout = () => {
-    localStorage.clear("user")
-    setUser("")
+    localStorage.clear("userName")
+    setFinalUserName("")
+    setUserName("")
+    toast.success("خروج با موفقیت انجام شد")
   }
 
   const handleAdvertisement = () => {
-    if (user) {
+    if (finalUserName) {
       navigate("/advertisement")
-    } else alert("لطفا ثبت نام کنید")
+    } else toast.error("لطفا ثبت نام کنید")
   }
   return (
     <div>
       <Login
-        onOpen={onOpen}
         onOpenChange={onOpenChange}
         isOpen={isOpen}
-        setUser={setUser}
+        userName={UserName}
+        setUserName={setUserName}
+        setFinalUserName={setFinalUserName}
       />
       <div className="w-svw md:hidden py-3 flex justify-between items-center bg-white">
         <img className="mr-8" src={hamberMenu} />
@@ -70,29 +73,26 @@ function Navbar() {
           </div>
 
           <div className="flex items-center gap-x-8 ml-8">
-            {user === "امیرحسین" ? (
+            {finalUserName ? (
               <>
                 <Dropdown className="shadow-none mt-9">
                   <DropdownTrigger>
                     <Button
                       variant="light"
-                      className="md:text-sm lg:text-xl pb-1 hover:cursor-pointer"
-                      onPress={onOpen}
-                    >
-                      {user}
+                      className="md:text-base lg:text-xl pb-1 hover:cursor-pointer"
+                      onPress={onOpen}>
+                      {finalUserName}
                     </Button>
                   </DropdownTrigger>
                   <DropdownMenu
                     variant="faded"
-                    aria-label="Dropdown menu with icons"
-                  >
+                    aria-label="Dropdown menu with icons">
                     <DropdownItem key="user" startContent={<CiUser />}>
                       پنل کاربر
                     </DropdownItem>
                     <DropdownItem
                       key="copy"
-                      startContent={<IoDocumentTextOutline />}
-                    >
+                      startContent={<IoDocumentTextOutline />}>
                       آگهی های من
                     </DropdownItem>
                     <DropdownItem key="Advertising" startContent={<TbBadge />}>
@@ -102,8 +102,7 @@ function Navbar() {
                       key="exit"
                       onClick={() => handleLogout()}
                       className="text-primary"
-                      startContent={<IoExitOutline />}
-                    >
+                      startContent={<IoExitOutline />}>
                       خروج
                     </DropdownItem>
                   </DropdownMenu>
@@ -114,16 +113,14 @@ function Navbar() {
                 <Button
                   variant="light"
                   className="md:text-sm lg:text-xl pb-1 hover:cursor-pointer"
-                  onPress={onOpen}
-                >
+                  onPress={onOpen}>
                   ثبت نام
                 </Button>
               </>
             )}
             <button
               className="btn--primary btn--hover"
-              onClick={handleAdvertisement}
-            >
+              onClick={handleAdvertisement}>
               ثبت آگهی
             </button>
           </div>
