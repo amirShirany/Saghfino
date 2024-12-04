@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router-dom"
 import { Toaster } from "react-hot-toast"
 import Homepage from "./pages/Homepage"
-import Advertisement from "./pages/advertisement"
+import FirstAdvertisement from "./pages/FirstAdvertisement"
+import SecondAdvertisement from "./pages/SecondAdvertisement"
 
 function App() {
   return (
@@ -10,7 +11,11 @@ function App() {
         <Toaster />
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/advertisement" element={<Advertisement />} />
+          <Route path="/first-advertisement" element={<FirstAdvertisement />} />
+          <Route
+            path="/second-advertisement"
+            element={<SecondAdvertisement />}
+          />
         </Routes>
       </div>
     </div>

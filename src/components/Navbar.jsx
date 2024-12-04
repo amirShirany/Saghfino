@@ -43,7 +43,7 @@ function Navbar() {
 
   const handleAdvertisement = () => {
     if (finalUserName) {
-      navigate("/advertisement")
+      navigate("/first-advertisement")
     } else toast.error("لطفا ثبت نام کنید")
   }
   return (

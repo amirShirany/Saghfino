@@ -1,6 +1,6 @@
 import FirstAdv from "../components/Advertise/FirstAdv"
 
-function Advertisement() {
+function FirstAdvertisement() {
   return (
     <div className="container xl:max-w-screen-2xl">
       <FirstAdv />
@@ -8,4 +8,4 @@ function Advertisement() {
   )
 }
 
-export default Advertisement
+export default FirstAdvertisement

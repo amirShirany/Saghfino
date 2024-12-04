@@ -88,7 +88,7 @@ function Login({
       setFinalUserName(userName)
       setTime(0)
     } else {
-      toast.error("کد نامعتبر است.لطفادوباره تلاش کنید!")
+      toast.error("کد نامعتبر است. لطفادوباره تلاش کنید!")
       setTime(0)
     }
     // Add additional submission logic here...

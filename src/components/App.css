@@ -52,18 +52,22 @@
 }
 
 .input-style {
-  width: 18.5rem;
-  height: 2rem;
+  min-width: 18.5rem;
+  min-height: 2rem;
   color: #353535;
   border: 1px solid #adadad;
   border-radius: 8px;
   font-size: 14px;
-  @media (min-width: 1024px) {
+  @media screen {
+    max-width: 17.6rem;
     height: 3rem;
-    width: 17.6rem;
   }
 }
 
 .input-border::placeholder {
   color: #adadad;
+}
+
+.checkbox-style {
+  border: 1px solid #353535;
 }
