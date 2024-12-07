@@ -1,26 +1,30 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { usePage2Store } from "../../store/useFormStore"
 import Stepper_2 from "../../assets/images/Advertisement/Stepper_2.svg"
 import arrow_3 from "../../assets/images/Advertisement/arrow_3.svg"
-import { Select, SelectItem } from "@nextui-org/react"
 import "../App.css"
 
 export const transactiontypes = [
-  { key: "11", label: "11" },
-  { key: "12", label: "12" },
-  { key: "13", label: "13" },
-  { key: "14", label: "14" },
+  { value: "رهن و اجاره", label: "رهن و اجاره" },
+  { value: "خرید", label: "خرید" },
 ]
 
 export const propertytypes = [
-  { key: "تجاری", label: "تجاری" },
-  { key: "مسکونی", label: "مسکونی" },
+  { value: "تجاری", label: "تجاری" },
+  { value: "مسکونی", label: "مسکونی" },
 ]
 
 function SecondAdv() {
+  const [isFilled, setIsFilled] = useState({
+    Convertible: false,
+    transactiontype: false,
+    mainstreet: false,
+    sidestreet: false,
+  })
+
   const navigate = useNavigate()
   const handleClickPreviousPage = () => {
     navigate("/first-advertisement")
@@ -33,25 +37,42 @@ function SecondAdv() {
     setValue,
     formState: { errors },
   } = useForm()
+
   //use zustand
   const { page2Data, setPage2Data } = usePage2Store()
 
   useEffect(() => {
+    setValue("Convertible", page2Data.Convertible)
     setValue("transactiontype", page2Data.transactiontype)
     setValue("propertytype", page2Data.propertytype)
     setValue("mortgage", page2Data.mortgage)
     setValue("rent", page2Data.rent)
+
+    // Set initial fill state
+    setIsFilled({
+      Convertible: page2Data.Convertible,
+      transactiontype: page2Data.transactiontype !== "",
+      propertytype: page2Data.propertytype !== "",
+      mortgage: page2Data.mortgage !== "",
+      rent: page2Data.rent !== "",
+    })
   }, [setValue, page2Data])
+
+  // Set initial fill state
+  const handleChange = (field) => (e) => {
+    setIsFilled((prev) => ({
+      ...prev,
+      [field]:
+        e.target.type === "checkbox"
+          ? e.target.checked
+          : e.target.value.trim() !== "",
+    }))
+  }
 
   const onSubmit = (data2) => {
     setPage2Data(data2)
     console.log("Page 2 Data Submitted:", data2)
   }
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target
-  //   setPage2Data({ [name]: value })
-  // }
 
   return (
     <div className="svg-advertise-background">
@@ -72,42 +93,68 @@ function SecondAdv() {
             <div className="lg:flex lg:justify-center ml-3">
               {/* select_1 */}
               <div className="flex flex-col mb-5">
-                <p className="mb-1 text-Gr11 font-medium text-sm lg:text-lg">
+                <label
+                  htmlFor="transactiontype"
+                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg">
                   نوع معامله
-                </p>
-                <Select
-                  name="transactiontype"
-                  variant="underlined"
-                  placeholder="نوع معامله خود را انتخاب کنید"
-                  {...register("transactiontype", { required: true })}
-                  className="bg-white input-style pr-4">
+                </label>
+                <select
+                  id="transactiontype"
+                  {...register("transactiontype", {
+                    onChange: handleChange("transactiontype"),
+                    required: true,
+                  })}
+                  className={`bg-white input-style ${
+                    isFilled.transactiontype ? "filled-input" : ""
+                  }`}>
+                  <option value="" disabled>
+                    نوع معامله خود را انتخاب کنید
+                  </option>
                   {transactiontypes.map((transactiontype) => (
-                    <SelectItem key={transactiontype.key}>
+                    <option
+                      className="font-semibold"
+                      key={transactiontype.value}>
                       {transactiontype.label}
-                    </SelectItem>
+                    </option>
                   ))}
-                  {errors.transactiontype && <span>فیلد اجباری است!</span>}
-                </Select>
+                </select>
+                {errors.transactiontype && (
+                  <span className="text-red-500 font-medium m-1">
+                    فیلد اجباری است!
+                  </span>
+                )}
               </div>
 
               {/* select_2 */}
               <div className="flex flex-col mb-5">
-                <p className="mb-1 text-Gr11 font-medium text-sm lg:text-lg lg:mr-4">
+                <label
+                  htmlFor="propertytype"
+                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg lg:mr-4">
                   نوع ملک
-                </p>
-                <Select
-                  name="propertytype"
-                  variant="underlined"
-                  placeholder="نوع ملک خود را انتخاب کنید"
-                  {...register("propertytype", { required: true })}
-                  className="bg-white input-style pr-4 lg:mr-4">
+                </label>
+                <select
+                  id="propertytype"
+                  {...register("propertytype", {
+                    onChange: handleChange("propertytype"),
+                    required: true,
+                  })}
+                  className={`bg-white input-style lg:mr-4 ${
+                    isFilled.propertytype ? "filled-input" : ""
+                  }`}>
+                  <option value="" disabled>
+                    نوع ملک خود را انتخاب کنید
+                  </option>
                   {propertytypes.map((propertytype) => (
-                    <SelectItem key={propertytype.key}>
+                    <option className="font-semibold" key={propertytype.value}>
                       {propertytype.label}
-                    </SelectItem>
+                    </option>
                   ))}
-                  {errors.propertytype && <span>فیلد اجباری است!</span>}
-                </Select>
+                </select>
+                {errors.propertytype && (
+                  <span className="text-red-500 font-medium m-1 lg:mr-4">
+                    فیلد اجباری است!
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -116,43 +163,68 @@ function SecondAdv() {
             <div className="lg:flex lg:justify-center lg:mt-9 ml-3">
               {/* input_3 */}
               <div className="flex flex-col mb-5">
-                <p className="mb-1 text-Gr11 font-medium text-sm lg:text-lg">
+                <label
+                  htmlFor="mortgage"
+                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg">
                   رهن
-                </p>
+                </label>
                 <input
+                  id="mortgage"
                   type="text"
-                  name="mortgage"
-                  {...register("mortgage", { required: true })}
-                  className="bg-white input-style pr-4 lg:w-72"
+                  {...register("mortgage", {
+                    onChange: handleChange("mortgage"),
+                    required: "فیلد اجباری است!",
+                    // validate: (value) =>
+                    //   !isNaN(value) || "فقط اعداد مجاز هستند",
+                  })}
+                  className={`input-style ${
+                    isFilled.mortgage ? "filled-input" : ""
+                  }`}
                   placeholder="مثلاً ۵۰ میلیون تومان"
                 />
                 {errors.mortgage && (
-                  <span className="text-red-500">فیلد اجباری است!</span>
+                  <span className="text-red-500 font-medium m-1">
+                    {errors.mortgage.message}
+                  </span>
                 )}
               </div>
 
               <div className="flex flex-col">
-                <p className="mb-1 text-Gr11 font-medium text-sm lg:text-lg lg:mr-4">
+                <label
+                  htmlFor="rent"
+                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg lg:mr-4">
                   اجاره
-                </p>
+                </label>
                 {/* input_4 */}
                 <input
+                  id="rent"
                   type="text"
-                  name="rent"
-                  {...register("rent", { required: true })}
-                  className="bg-white input-style pr-4 lg:mr-4"
+                  {...register("rent", {
+                    onChange: handleChange("rent"),
+                    required: "فیلد اجباری است!",
+                    // validate: (value) =>
+                    //   !isNaN(value) || "فقط اعداد مجاز هستند",
+                  })}
+                  className={`input-style lg:mr-4 ${
+                    isFilled.rent ? "filled-input" : ""
+                  }`}
                   placeholder="مثلاً ۲ میلیون تومان"
                 />
                 {errors.rent && (
-                  <span className="text-red-500">فیلد اجباری است!</span>
+                  <span className="text-red-500 font-medium m-1 lg:mr-4">
+                    {errors.rent.message}
+                  </span>
                 )}
 
                 {/* ckeckbox */}
-                <div className="mt-2 lg:mt-2 lg:flex lg:justify-start lg:-mr-[296px]">
+                <div className="mt-2 lg:mt-3 lg:flex lg:justify-start lg:-mr-[296px]">
                   <span className="flex items-center gap-x-1">
                     <input
                       type="checkbox"
-                      className="w-3 h-3 lg:w-4 lg:h-4 rounded-full lg:rounded"
+                      {...register("Convertible", {
+                        onChange: handleChange("Convertible"),
+                      })}
+                      className="w-3 h-3 lg:w-4 lg:h-4"
                     />
                     <p className="text-Gr11 font-medium text-sm lg:text-lg">
                       قابل تبدیل

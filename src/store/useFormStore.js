@@ -24,6 +24,7 @@ export const usePage2Store = create((set) => ({
     propertytype: "",
     mortgage: "",
     rent: "",
+    Convertible: false,
   },
   setPage2Data: (data) => {
     set((state) => {
