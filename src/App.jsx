@@ -3,6 +3,7 @@ import { Toaster } from "react-hot-toast"
 import Homepage from "./pages/Homepage"
 import FirstAdvertisement from "./pages/FirstAdvertisement"
 import SecondAdvertisement from "./pages/SecondAdvertisement"
+import ThirdAdvertisement from "./pages/ThirdAdvertisement"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             path="/second-advertisement"
             element={<SecondAdvertisement />}
           />
+          <Route path="/third-advertisement" element={<ThirdAdvertisement />} />
         </Routes>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { usePage2Store } from "../../store/useFormStore"
+import toast from "react-hot-toast"
 import Stepper_2 from "../../assets/images/Advertisement/Stepper_2.svg"
 import arrow_3 from "../../assets/images/Advertisement/arrow_3.svg"
 import "../App.css"
@@ -25,6 +26,7 @@ function SecondAdv() {
     sidestreet: false,
   })
 
+  // Go-PreviousPage
   const navigate = useNavigate()
   const handleClickPreviousPage = () => {
     navigate("/first-advertisement")
@@ -69,9 +71,31 @@ function SecondAdv() {
     }))
   }
 
-  const onSubmit = (data2) => {
-    setPage2Data(data2)
-    console.log("Page 2 Data Submitted:", data2)
+  const onSubmit = (page2Data) => {
+    // localStorage دریافت اطلاعات قبلی از
+    const storedData = JSON.parse(localStorage.getItem("page2Data"))
+
+    // مقایسه اطلاعات جدید با اطلاعات قبلی
+    if (JSON.stringify(page2Data) !== JSON.stringify(storedData)) {
+      setPage2Data(page2Data)
+      console.log("Page 2 Data Submitted:", page2Data)
+
+      //toast.success
+      toast.success("اطلاعات باموفقیت ثبت شد", {
+        duration: 4000,
+        icon: "✔️",
+        className: "success-toast",
+      })
+    } else {
+      //toast.error
+      toast.error("اطلاعات تغییر نکرد!", {
+        duration: 4000,
+        icon: "⚠️",
+        className: "alert-toast",
+      })
+    }
+    console.log(isFilled, "border-style-filled")
+    navigate("/third-advertisement")
   }
 
   return (
@@ -245,7 +269,6 @@ function SecondAdv() {
             </button>
             <button
               className="btn--secondary font-medium mr-4 w-24 h-8 lg:w-48 lg:h-12"
-              // onClick={handleClickNextPage}
               type="submit">
               ادامه
             </button>

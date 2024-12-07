@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { usePage1Store } from "../../store/useFormStore"
+import toast from "react-hot-toast"
 import Stepper_1 from "../../assets/images/Advertisement/Stepper_1.svg"
 import "../App.css"
 
@@ -49,7 +50,6 @@ function FirstAdv() {
     setValue("region", page1Data.region)
     setValue("mainstreet", page1Data.mainstreet)
     setValue("sidestreet", page1Data.sidestreet)
-
     // Set initial fill state
     setIsFilled({
       city: page1Data.city !== "",
@@ -66,10 +66,32 @@ function FirstAdv() {
     }))
   }
 
-  const onSubmit = (data1) => {
-    setPage1Data(data1)
-    console.log("Page 1 Data Submitted:", data1)
+  //Submit-Form
+  const onSubmit = (page1Data) => {
+    // localStorage دریافت اطلاعات قبلی از
+    const storedData = JSON.parse(localStorage.getItem("page1Data"))
+    // مقایسه اطلاعات جدید با اطلاعات قبلی
+    if (JSON.stringify(page1Data) !== JSON.stringify(storedData)) {
+      setPage1Data(page1Data)
+      console.log("Page 1 Data Submitted:", page1Data)
+
+      //toast.success
+      toast.success("اطلاعات باموفقیت ثبت شد", {
+        duration: 4000,
+        icon: "✔️",
+        className: "success-toast",
+      })
+    } else {
+      //toast.error
+      toast.error("اطلاعات تغییر نکرد!", {
+        duration: 4000,
+        icon: "⚠️",
+        className: "alert-toast",
+      })
+    }
+    console.log(isFilled, "border-style-filled")
     navigate("/second-advertisement")
+    // navigate("/second-advertisement")
   }
 
   // Load initial values from local storage

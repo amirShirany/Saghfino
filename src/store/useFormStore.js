@@ -34,3 +34,20 @@ export const usePage2Store = create((set) => ({
     })
   },
 }))
+
+// Data for page 3
+export const usePage3Store = create((set) => ({
+  page3Data: JSON.parse(localStorage.getItem("page3Data")) || {
+    area: "",
+    room: "",
+    floor: "",
+    numfloors: "",
+  },
+  setPage3Data: (data) => {
+    set((state) => {
+      const newState = { ...state.page3Data, ...data }
+      localStorage.setItem("page3Data", JSON.stringify(newState))
+      return { page3Data: newState }
+    })
+  },
+}))
