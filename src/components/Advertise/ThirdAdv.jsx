@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { usePage3Store } from "../../store/useFormStore"
@@ -8,50 +8,32 @@ import Stepper_3 from "../../assets/images/Advertisement/Stepper_3.svg"
 import "../App.css"
 
 function ThirdAdv() {
-  const [isFilled, setIsFilled] = useState({
-    area: false,
-    room: false,
-    floor: false,
-    numfloors: false,
-  })
-
-  // Go-PreviousPage
-  const navigate = useNavigate()
-  const handleClickPreviousPage = () => {
-    navigate("/second-advertisement")
-  }
-
   //use react-hook-form
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm()
-
   //use zustand
   const { page3Data, setPage3Data } = usePage3Store()
+
+  // نظارت بر تغییرات تمامی فیلدها
+  const watchedValues = watch()
+  const inputClass = (field) => {
+    const isEmpty = watchedValues[field] === ""
+    return `bg-white input-style ${
+      isEmpty ? "border border-Gr7" : "border border-Gr11"
+    }`
+  }
 
   useEffect(() => {
     setValue("area", page3Data.area)
     setValue("room", page3Data.room)
     setValue("floor", page3Data.floor)
     setValue("numfloors", page3Data.numfloors)
-    // Set initial fill state for Input-border
-    setIsFilled({
-      area: page3Data.area !== "",
-      room: page3Data.room !== "",
-      floor: page3Data.floor !== "",
-      numfloors: page3Data.numfloors !== "",
-    })
   }, [setValue, page3Data])
-
-  const handleChange = (field) => (e) => {
-    setIsFilled((prev) => ({
-      ...prev,
-      [field]: e.target.value.trim() !== "",
-    }))
-  }
 
   //Submit-Form
   const onSubmit = (page3Data) => {
@@ -76,8 +58,13 @@ function ThirdAdv() {
       })
     }
 
-    console.log(isFilled, "border-style-filled")
     // navigate("/second-advertisement")
+  }
+
+  // Go-PreviousPage
+  const navigate = useNavigate()
+  const handleClickPreviousPage = () => {
+    navigate("/second-advertisement")
   }
 
   return (
@@ -108,12 +95,9 @@ function ThirdAdv() {
                   type="text"
                   name="area"
                   {...register("area", {
-                    onChange: handleChange("area"),
                     required: true,
                   })}
-                  className={`input-style ${
-                    isFilled.area ? "filled-input" : ""
-                  }`}
+                  className={inputClass("area")}
                   placeholder="مساحت ملک خود را وارد کنید"
                 />
                 {errors.area && (
@@ -124,10 +108,10 @@ function ThirdAdv() {
               </div>
 
               {/* input_2 */}
-              <div className="flex flex-col">
+              <div className="flex flex-col lg:mr-4">
                 <label
                   htmlFor="room"
-                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg lg:mr-4">
+                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg">
                   اتاق
                 </label>
                 <input
@@ -135,16 +119,13 @@ function ThirdAdv() {
                   type="text"
                   name="room"
                   {...register("room", {
-                    onChange: handleChange("room"),
                     required: true,
                   })}
-                  className={`input-style lg:mr-4 ${
-                    isFilled.area ? "filled-input" : ""
-                  }`}
+                  className={inputClass("room")}
                   placeholder="تعداد اتاق‌ها را بنویسید"
                 />
                 {errors.room && (
-                  <span className="text-red-500 font-medium m-1 lg:mr-4">
+                  <span className="text-red-500 font-medium m-1">
                     فیلد اجباری است!
                   </span>
                 )}
@@ -166,12 +147,9 @@ function ThirdAdv() {
                   type="text"
                   name="floor"
                   {...register("floor", {
-                    onChange: handleChange("floor"),
                     required: true,
                   })}
-                  className={`input-style ${
-                    isFilled.floor ? "filled-input" : ""
-                  }`}
+                  className={inputClass("floor")}
                   placeholder="طبقه ملک خود را بنویسید"
                 />
                 {errors.floor && (
@@ -182,10 +160,10 @@ function ThirdAdv() {
               </div>
 
               {/* input_4 */}
-              <div className="flex flex-col">
+              <div className="flex flex-col lg:mr-4">
                 <label
                   htmlFor="numfloors"
-                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg lg:mr-4">
+                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg">
                   تعداد طبقات
                 </label>
                 <input
@@ -193,16 +171,13 @@ function ThirdAdv() {
                   type="text"
                   name="numfloors"
                   {...register("numfloors", {
-                    onChange: handleChange("numfloors"),
                     required: true,
                   })}
-                  className={`input-style lg:mr-4 ${
-                    isFilled.numfloors ? "filled-input" : ""
-                  }`}
+                  className={inputClass("numfloors")}
                   placeholder="تعداد طبقات ملک خود را بنویسید"
                 />
                 {errors.numfloors && (
-                  <span className="text-red-500 font-medium m-1 lg:mr-4">
+                  <span className="text-red-500 font-medium m-1">
                     فیلد اجباری است!
                   </span>
                 )}

@@ -41,15 +41,31 @@ function Login({
   //handlePhonenumber
   const handlePhonenumber = () => {
     if (!rulesAccepted) {
-      toast.error("با قوانین موافقت نشده است")
+      toast.error("با قوانین موافقت نشده است!", {
+        duration: 4000,
+        className: "error-toast",
+        icon: "❌",
+      })
     } else if (userName === "") {
-      toast.error("نام و نام خانوادگی خود را وارد کنید")
+      toast.error("نام و نام خانوادگی خود را وارد کنید", {
+        duration: 4000,
+        className: "error-toast",
+        icon: "❌",
+      })
     } else if (phone === "09137983097") {
       // console.log(`Sending OTP to ${phone}`)
-      toast.success("کد تایید برای شما ارسال شد")
+      toast.success("کد تایید برای شما ارسال شد", {
+        duration: 4000,
+        icon: "✔️",
+        className: "success-toast",
+      })
       setIsOtpSent(true)
     } else {
-      toast.error("لطفا یک شماره تلفن معتبر وارد کنید")
+      toast.error("لطفا یک شماره تلفن معتبر وارد کنید", {
+        duration: 4000,
+        className: "error-toast",
+        icon: "❌",
+      })
     }
   }
 
@@ -83,12 +99,20 @@ function Login({
     const otp = inputs.current.map((input) => input.value).join("")
     // Example OTP
     if (otp === "54321") {
-      toast.success("ورود با موفقیت انجام شد!")
+      toast.success("ورود با موفقیت انجام شد!", {
+        duration: 4000,
+        icon: "✔️",
+        className: "success-toast",
+      })
       localStorage.setItem("userName", userName)
       setFinalUserName(userName)
       setTime(0)
     } else {
-      toast.error("کد نامعتبر است. لطفادوباره تلاش کنید!")
+      toast.error("کد نامعتبر است. لطفادوباره تلاش کنید!", {
+        duration: 4000,
+        className: "error-toast",
+        icon: "❌",
+      })
       setTime(0)
     }
     // Add additional submission logic here...

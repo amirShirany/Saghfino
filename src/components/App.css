@@ -58,22 +58,18 @@
   border-radius: 8px;
   font-weight: 500;
   font-size: 14px;
-  border: 1px solid #adadad;
   @media screen {
     max-width: 17.6rem;
     height: 3rem;
   }
 }
 
-.filled-input {
-  border: 1px solid #353535;
-}
-
-/* toast */
+/* toast-notify */
 .success-toast {
   background-color: #d4edda;
   color: #155724;
   font-size: larger;
+  font-weight: 500;
   border: 2px solid #c3e6cb;
   padding: 16px;
   border-radius: 8px;
@@ -85,6 +81,7 @@
   background-color: #fff3cd;
   color: #856404;
   font-size: larger;
+  font-weight: 500;
   border: 2px solid #ffeeba;
   padding: 16px;
   border-radius: 8px;
@@ -96,6 +93,7 @@
   background-color: #f8d7da;
   color: #721c24;
   font-size: larger;
+  font-weight: 500;
   border: 2px solid #f5c6cb;
   padding: 16px;
   border-radius: 8px;

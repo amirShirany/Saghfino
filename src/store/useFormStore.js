@@ -9,12 +9,14 @@ export const usePage1Store = create((set) => ({
     sidestreet: "",
   },
   setPage1Data: (data) => {
-    set((state) => {
-      const newState = { ...state.page1Data, ...data }
-      localStorage.setItem("page1Data", JSON.stringify(newState))
-      return { page1Data: newState }
-    })
+    localStorage.setItem("page1Data", JSON.stringify(data))
+    set({ page1Data: data })
   },
+  // تابع برای تنظیم مجدد مقادیر
+  resetpage1Data: () =>
+    set({
+      page1Data: { city: "", region: "", mainstreet: "", sidestreet: "" },
+    }),
 }))
 
 // Data for page 2
@@ -27,12 +29,20 @@ export const usePage2Store = create((set) => ({
     Convertible: false,
   },
   setPage2Data: (data) => {
-    set((state) => {
-      const newState = { ...state.page2Data, ...data }
-      localStorage.setItem("page2Data", JSON.stringify(newState))
-      return { page2Data: newState }
-    })
+    localStorage.setItem("page2Data", JSON.stringify(data))
+    set({ page2Data: data })
   },
+  // تابع برای تنظیم مجدد مقادیر
+  resetpage2Data: () =>
+    set({
+      page2Data: {
+        transactiontype: "",
+        propertytype: "",
+        mortgage: "",
+        rent: "",
+        Convertible: false,
+      },
+    }),
 }))
 
 // Data for page 3
@@ -44,10 +54,18 @@ export const usePage3Store = create((set) => ({
     numfloors: "",
   },
   setPage3Data: (data) => {
-    set((state) => {
-      const newState = { ...state.page3Data, ...data }
-      localStorage.setItem("page3Data", JSON.stringify(newState))
-      return { page3Data: newState }
-    })
+    localStorage.setItem("page3Data", JSON.stringify(data))
+    set({ page3Data: data })
   },
+  // تابع برای تنظیم مجدد مقادیر
+  resetpage3Data: () =>
+    set({
+      page3Data: {
+        transactiontype: "",
+        propertytype: "",
+        mortgage: "",
+        rent: "",
+        Convertible: false,
+      },
+    }),
 }))

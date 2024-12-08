@@ -7,6 +7,12 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@nextui-org/react"
+import {
+  usePage1Store,
+  usePage2Store,
+  usePage3Store,
+} from "../store/useFormStore"
+
 import { useNavigate } from "react-router-dom"
 import { IoDocumentTextOutline } from "react-icons/io5"
 import { CiUser } from "react-icons/ci"
@@ -19,6 +25,10 @@ import toast from "react-hot-toast"
 import "./App.css"
 
 function Navbar() {
+  const { resetpage1Data } = usePage1Store()
+  const { resetpage2Data } = usePage2Store()
+  const { resetpage3Data } = usePage3Store()
+
   const { isOpen, onOpenChange, onOpen } = useDisclosure()
   const [finalUserName, setFinalUserName] = useState(
     localStorage.getItem("userName")
@@ -35,16 +45,27 @@ function Navbar() {
   // }, [userName])
 
   const handleLogout = () => {
-    localStorage.clear("userName")
+    localStorage.clear()
     setFinalUserName("")
-    setUserName("")
-    toast.success("خروج با موفقیت انجام شد")
+    resetpage1Data()
+    resetpage2Data()
+    resetpage3Data()
+    toast.success("خروج با موفقیت انجام شد", {
+      duration: 2000,
+      icon: "✔️",
+      className: "success-toast",
+    })
   }
 
   const handleAdvertisement = () => {
     if (finalUserName) {
       navigate("/first-advertisement")
-    } else toast.error("لطفا ثبت نام کنید")
+    } else
+      toast.error("لطفا اول ثبت نام کنید", {
+        duration: 2000,
+        className: "error-toast",
+        icon: "❌",
+      })
   }
   return (
     <div>
@@ -112,7 +133,7 @@ function Navbar() {
               <>
                 <Button
                   variant="light"
-                  className="md:text-sm lg:text-xl pb-1 hover:cursor-pointer"
+                  className="text-Gr10 font-medium md:text-sm lg:text-xl pb-1 hover:cursor-pointer"
                   onPress={onOpen}>
                   ثبت نام
                 </Button>

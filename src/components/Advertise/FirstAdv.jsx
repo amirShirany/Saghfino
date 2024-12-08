@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { usePage1Store } from "../../store/useFormStore"
@@ -22,49 +22,32 @@ export const regions = [
 ]
 
 function FirstAdv() {
-  const [isFilled, setIsFilled] = useState({
-    city: false,
-    region: false,
-    mainstreet: false,
-    sidestreet: false,
-  })
-
-  const navigate = useNavigate()
-  const handleClickHomePage = () => {
-    navigate("/")
-  }
   //use react-hook-form
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm()
   //use zustand
   const { page1Data, setPage1Data } = usePage1Store()
 
-  console.log(isFilled, 111)
+  // نظارت بر تغییرات تمامی فیلدها
+  const watchedValues = watch()
+  const inputClass = (field) => {
+    const isEmpty = watchedValues[field] === ""
+    return `bg-white input-style ${
+      isEmpty ? "border border-Gr7" : "border border-Gr11"
+    }`
+  }
 
   useEffect(() => {
     setValue("city", page1Data.city)
     setValue("region", page1Data.region)
     setValue("mainstreet", page1Data.mainstreet)
     setValue("sidestreet", page1Data.sidestreet)
-    // Set initial fill state
-    setIsFilled({
-      city: page1Data.city !== "",
-      region: page1Data.region !== "",
-      mainstreet: page1Data.mainstreet !== "",
-      sidestreet: page1Data.sidestreet !== "",
-    })
   }, [setValue, page1Data])
-
-  const handleChange = (field) => (e) => {
-    setIsFilled((prev) => ({
-      ...prev,
-      [field]: e.target.value.trim() !== "",
-    }))
-  }
 
   //Submit-Form
   const onSubmit = (page1Data) => {
@@ -89,21 +72,14 @@ function FirstAdv() {
         className: "alert-toast",
       })
     }
-    console.log(isFilled, "border-style-filled")
+
     navigate("/second-advertisement")
-    // navigate("/second-advertisement")
   }
 
-  // Load initial values from local storage
-  // useEffect(() => {
-  //   const savedData = localStorage.getItem("formData")
-  //   if (savedData) {
-  //     const formData = JSON.parse(savedData)
-  //     for (const key in formData) {
-  //       setValue(key, formData[key])
-  //     }
-  //   }
-  // }, [setValue])
+  const navigate = useNavigate()
+  const handleClickHomePage = () => {
+    navigate("/")
+  }
 
   return (
     <div className="svg-advertise-background">
@@ -131,12 +107,9 @@ function FirstAdv() {
                 <select
                   id="city"
                   {...register("city", {
-                    onChange: handleChange("city"),
                     required: "فیلد اجباری است!",
                   })}
-                  className={`bg-white input-style ${
-                    isFilled.city ? "filled-input" : ""
-                  }`}>
+                  className={inputClass("city")}>
                   <option value="" disabled>
                     لطفا شهر مورد نظر رانتخاب کنید
                   </option>
@@ -154,10 +127,10 @@ function FirstAdv() {
               </div>
 
               {/* select_2 */}
-              <div className="flex flex-col mb-5">
+              <div className="flex flex-col mb-5 lg:mr-4">
                 <label
                   htmlFor="region"
-                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg lg:mr-4">
+                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg">
                   منطقه
                 </label>
                 <select
@@ -165,12 +138,9 @@ function FirstAdv() {
                   name="region"
                   placeholder="لطفا منطقه مورد نظر رانتخاب کنید"
                   {...register("region", {
-                    onChange: handleChange("region"),
                     required: true,
                   })}
-                  className={`bg-white input-style lg:mr-4 ${
-                    isFilled.region ? "filled-input" : ""
-                  }`}>
+                  className={inputClass("region")}>
                   <option value="" disabled>
                     لطفا منطقه مورد نظر رانتخاب کنید
                   </option>
@@ -181,7 +151,7 @@ function FirstAdv() {
                   ))}
                 </select>
                 {errors.region && (
-                  <span className="text-red-500 font-medium m-1 lg:mr-4">
+                  <span className="text-red-500 font-medium m-1">
                     فیلد اجباری است!
                   </span>
                 )}
@@ -203,12 +173,9 @@ function FirstAdv() {
                   type="text"
                   name="mainstreet"
                   {...register("mainstreet", {
-                    onChange: handleChange("mainstreet"),
                     required: true,
                   })}
-                  className={`input-style ${
-                    isFilled.mainstreet ? "filled-input" : ""
-                  }`}
+                  className={inputClass("mainstreet")}
                   placeholder="آدرس خود را وارد کنید"
                 />
                 {errors.mainstreet && (
@@ -219,10 +186,10 @@ function FirstAdv() {
               </div>
 
               {/* input_4 */}
-              <div className="flex flex-col">
+              <div className="flex flex-col lg:mr-4">
                 <label
                   htmlFor="sidestreet"
-                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg lg:mr-4">
+                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg">
                   خیابان فرعی/کوچه
                 </label>
                 <input
@@ -230,16 +197,13 @@ function FirstAdv() {
                   type="text"
                   name="sidestreet"
                   {...register("sidestreet", {
-                    onChange: handleChange("sidestreet"),
                     required: true,
                   })}
-                  className={`input-style lg:mr-4 ${
-                    isFilled.sidestreet ? "filled-input" : ""
-                  }`}
+                  className={inputClass("sidestreet")}
                   placeholder="جزئیات آدرس را وارد کنید"
                 />
                 {errors.sidestreet && (
-                  <span className="text-red-500 font-medium m-1 lg:mr-4">
+                  <span className="text-red-500 font-medium m-1">
                     فیلد اجباری است!
                   </span>
                 )}

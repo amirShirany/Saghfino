@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { usePage2Store } from "../../store/useFormStore"
@@ -12,36 +12,31 @@ export const transactiontypes = [
   { value: "رهن و اجاره", label: "رهن و اجاره" },
   { value: "خرید", label: "خرید" },
 ]
-
 export const propertytypes = [
   { value: "تجاری", label: "تجاری" },
   { value: "مسکونی", label: "مسکونی" },
 ]
 
 function SecondAdv() {
-  const [isFilled, setIsFilled] = useState({
-    Convertible: false,
-    transactiontype: false,
-    mainstreet: false,
-    sidestreet: false,
-  })
-
-  // Go-PreviousPage
-  const navigate = useNavigate()
-  const handleClickPreviousPage = () => {
-    navigate("/first-advertisement")
-  }
-
   //use react-hook-form
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
-  } = useForm()
-
+  } = useForm({})
   //use zustand
   const { page2Data, setPage2Data } = usePage2Store()
+
+  // نظارت بر تغییرات تمامی فیلدها
+  const watchedValues = watch()
+  const inputClass = (field) => {
+    const isEmpty = watchedValues[field] === ""
+    return `bg-white input-style ${
+      isEmpty ? "border border-Gr7" : "border border-Gr11"
+    }`
+  }
 
   useEffect(() => {
     setValue("Convertible", page2Data.Convertible)
@@ -49,37 +44,15 @@ function SecondAdv() {
     setValue("propertytype", page2Data.propertytype)
     setValue("mortgage", page2Data.mortgage)
     setValue("rent", page2Data.rent)
-
-    // Set initial fill state
-    setIsFilled({
-      Convertible: page2Data.Convertible,
-      transactiontype: page2Data.transactiontype !== "",
-      propertytype: page2Data.propertytype !== "",
-      mortgage: page2Data.mortgage !== "",
-      rent: page2Data.rent !== "",
-    })
   }, [setValue, page2Data])
-
-  // Set initial fill state
-  const handleChange = (field) => (e) => {
-    setIsFilled((prev) => ({
-      ...prev,
-      [field]:
-        e.target.type === "checkbox"
-          ? e.target.checked
-          : e.target.value.trim() !== "",
-    }))
-  }
 
   const onSubmit = (page2Data) => {
     // localStorage دریافت اطلاعات قبلی از
     const storedData = JSON.parse(localStorage.getItem("page2Data"))
-
     // مقایسه اطلاعات جدید با اطلاعات قبلی
     if (JSON.stringify(page2Data) !== JSON.stringify(storedData)) {
       setPage2Data(page2Data)
       console.log("Page 2 Data Submitted:", page2Data)
-
       //toast.success
       toast.success("اطلاعات باموفقیت ثبت شد", {
         duration: 4000,
@@ -94,8 +67,14 @@ function SecondAdv() {
         className: "alert-toast",
       })
     }
-    console.log(isFilled, "border-style-filled")
+
     navigate("/third-advertisement")
+  }
+
+  // Go-PreviousPage
+  const navigate = useNavigate()
+  const handleClickPreviousPage = () => {
+    navigate("/first-advertisement")
   }
 
   return (
@@ -125,12 +104,10 @@ function SecondAdv() {
                 <select
                   id="transactiontype"
                   {...register("transactiontype", {
-                    onChange: handleChange("transactiontype"),
+                    // onChange: handleChange("transactiontype"),
                     required: true,
                   })}
-                  className={`bg-white input-style ${
-                    isFilled.transactiontype ? "filled-input" : ""
-                  }`}>
+                  className={inputClass("transactiontype")}>
                   <option value="" disabled>
                     نوع معامله خود را انتخاب کنید
                   </option>
@@ -150,21 +127,19 @@ function SecondAdv() {
               </div>
 
               {/* select_2 */}
-              <div className="flex flex-col mb-5">
+              <div className="flex flex-col mb-5 lg:mr-4">
                 <label
                   htmlFor="propertytype"
-                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg lg:mr-4">
+                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg">
                   نوع ملک
                 </label>
                 <select
                   id="propertytype"
                   {...register("propertytype", {
-                    onChange: handleChange("propertytype"),
+                    // onChange: handleChange("propertytype"),
                     required: true,
                   })}
-                  className={`bg-white input-style lg:mr-4 ${
-                    isFilled.propertytype ? "filled-input" : ""
-                  }`}>
+                  className={inputClass("propertytype")}>
                   <option value="" disabled>
                     نوع ملک خود را انتخاب کنید
                   </option>
@@ -175,7 +150,7 @@ function SecondAdv() {
                   ))}
                 </select>
                 {errors.propertytype && (
-                  <span className="text-red-500 font-medium m-1 lg:mr-4">
+                  <span className="text-red-500 font-medium m-1">
                     فیلد اجباری است!
                   </span>
                 )}
@@ -196,14 +171,11 @@ function SecondAdv() {
                   id="mortgage"
                   type="text"
                   {...register("mortgage", {
-                    onChange: handleChange("mortgage"),
                     required: "فیلد اجباری است!",
                     // validate: (value) =>
                     //   !isNaN(value) || "فقط اعداد مجاز هستند",
                   })}
-                  className={`input-style ${
-                    isFilled.mortgage ? "filled-input" : ""
-                  }`}
+                  className={inputClass("mortgage")}
                   placeholder="مثلاً ۵۰ میلیون تومان"
                 />
                 {errors.mortgage && (
@@ -213,10 +185,10 @@ function SecondAdv() {
                 )}
               </div>
 
-              <div className="flex flex-col">
+              <div className="flex flex-col lg:mr-4">
                 <label
                   htmlFor="rent"
-                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg lg:mr-4">
+                  className="mb-1 text-Gr11 font-medium text-sm lg:text-lg">
                   اجاره
                 </label>
                 {/* input_4 */}
@@ -224,30 +196,25 @@ function SecondAdv() {
                   id="rent"
                   type="text"
                   {...register("rent", {
-                    onChange: handleChange("rent"),
                     required: "فیلد اجباری است!",
                     // validate: (value) =>
                     //   !isNaN(value) || "فقط اعداد مجاز هستند",
                   })}
-                  className={`input-style lg:mr-4 ${
-                    isFilled.rent ? "filled-input" : ""
-                  }`}
+                  className={inputClass("rent")}
                   placeholder="مثلاً ۲ میلیون تومان"
                 />
                 {errors.rent && (
-                  <span className="text-red-500 font-medium m-1 lg:mr-4">
+                  <span className="text-red-500 font-medium m-1">
                     {errors.rent.message}
                   </span>
                 )}
 
                 {/* ckeckbox */}
-                <div className="mt-2 lg:mt-3 lg:flex lg:justify-start lg:-mr-[296px]">
+                <div className="mt-1 lg:mt-5 lg:flex lg:justify-start lg:-mr-[310px]">
                   <span className="flex items-center gap-x-1">
                     <input
                       type="checkbox"
-                      {...register("Convertible", {
-                        onChange: handleChange("Convertible"),
-                      })}
+                      {...register("Convertible")}
                       className="w-3 h-3 lg:w-4 lg:h-4"
                     />
                     <p className="text-Gr11 font-medium text-sm lg:text-lg">
