@@ -58,7 +58,7 @@
   border-radius: 8px;
   font-weight: 500;
   font-size: 14px;
-  @media screen {
+  @media (min-width: 768px) {
     max-width: 17.6rem;
     height: 3rem;
   }
