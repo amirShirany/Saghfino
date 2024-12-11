@@ -25,7 +25,7 @@ const itemWork = [
       "بازار کساد کسب و کار معماران داخلی در پی بالا رفتن قیمت مواد و متریال اولیه و مصالح خارجی",
   },
   {
-    id: 3,
+    id: 4,
     picItem: Rectangle53,
     Title:
       "شهرک ساحلی زمزم در منطقه نور استان مازندران از سوم شهریور وارد بازار مزایده شده است. ",
@@ -46,8 +46,7 @@ function News() {
                 return (
                   <div
                     key={item.id}
-                    className="w-[242px] lg:w-[287px] border border-Gr5 bg-Gr2 rounded-xl"
-                  >
+                    className="w-[242px] lg:w-[287px] border border-Gr5 bg-Gr2 rounded-xl">
                     <Card>
                       <CardBody className="overflow-visible">
                         <Image
