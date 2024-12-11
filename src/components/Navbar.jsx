@@ -36,14 +36,6 @@ function Navbar() {
   const [UserName, setUserName] = useState("") //Auxiliary variable for holding the current username
   const navigate = useNavigate()
 
-  //for keep value between refresh with useEffect
-  // useEffect(() => {
-  //   const storedUserName = localStorage.getItem("userName")
-  //   if (storedUserName) {
-  //     setUserName(storedUserName)
-  //   }
-  // }, [userName])
-
   const handleLogout = () => {
     localStorage.clear()
     setFinalUserName("")
@@ -121,7 +113,7 @@ function Navbar() {
                     </DropdownItem>
                     <DropdownItem
                       key="exit"
-                      onClick={() => handleLogout()}
+                      onClick={handleLogout}
                       className="text-primary"
                       startContent={<IoExitOutline />}>
                       خروج

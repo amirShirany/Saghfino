@@ -20,6 +20,7 @@ function Login({
   let [time, setTime] = useState(120) // 2 minutes in seconds
 
   // const [otp, setOtp] = useState("") //to save otp code!
+
   console.log(isOtpSent, "...")
 
   useEffect(() => {
@@ -246,9 +247,6 @@ function Login({
                               e.target.style.border = "2px solid #ccc" // Reset border
                             }
                           }}
-                          onFocus={(e) =>
-                            (e.target.style.border = "2px solid #66afe9")
-                          } // Change border on focus
                         />
                       ))}
                     </div>
