@@ -1,7 +1,26 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+// import svgo from "vite-plugin-svgo"
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom"],
+        },
+      },
+    },
+  },
+  plugins: [
+    react(),
+    // svgo({
+    //   svgoConfig: {
+    //     plugins: [
+    //       { name: "removeDimensions", active: true },
+    //       { name: "removeViewBox", active: false },
+    //     ],
+    //   },
+    // }),
+  ],
 })
