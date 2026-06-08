@@ -8,10 +8,11 @@ import ThirdAdvertisement from "./pages/ThirdAdvertisement"
 
 function App() {
   return (
-    <div className="">
+    <div>
       <div className="flex flex-col justify-center items-center">
         <Toaster />
         <Routes>
+          {/* homepage */}
           <Route path="/" element={<HomeLayout />}>
             <Route index element={<Homepage />} />
           </Route>

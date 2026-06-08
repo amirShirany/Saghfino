@@ -52,7 +52,8 @@ function FirstAdv() {
   //Submit-Form
   const onSubmit = (page1Data) => {
     // localStorage دریافت اطلاعات قبلی از
-    const storedData = JSON.parse(localStorage.getItem("page1Data"))
+    const storedDataRaw = localStorage.getItem("page1Data")
+    const storedData = storedDataRaw ? JSON.parse(storedDataRaw) : null
     // مقایسه اطلاعات جدید با اطلاعات قبلی
     if (JSON.stringify(page1Data) !== JSON.stringify(storedData)) {
       setPage1Data(page1Data)
@@ -114,7 +115,10 @@ function FirstAdv() {
                     لطفا شهر مورد نظر رانتخاب کنید
                   </option>
                   {citys.map((city) => (
-                    <option className="font-semibold" key={city.value}>
+                    <option
+                      className="font-semibold"
+                      key={city.value}
+                      value={city.value}>
                       {city.label}
                     </option>
                   ))}
@@ -145,7 +149,10 @@ function FirstAdv() {
                     لطفا منطقه مورد نظر رانتخاب کنید
                   </option>
                   {regions.map((region) => (
-                    <option className="font-semibold" key={region.value}>
+                    <option
+                      className="font-semibold"
+                      key={region.value}
+                      value={region.value}>
                       {region.label}
                     </option>
                   ))}
@@ -214,6 +221,7 @@ function FirstAdv() {
           {/* buttons */}
           <div className="mb-16 mt-10 lg:mt-24 flex justify-center">
             <button
+              type="button"
               className="btn--primary py-0 text-primary border-primary font-medium w-24 h-8 lg:w-48 lg:h-12"
               onClick={handleClickHomePage}>
               قبلی

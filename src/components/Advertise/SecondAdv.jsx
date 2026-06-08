@@ -91,7 +91,6 @@ function SecondAdv() {
           <p className="mt-10 mb-6 lg:mt-16 lg:mb-10 text-Gr11 font-medium text-center text-sm lg:text-2xl lg:text-right lg:mr-28">
             لطفا موارد زیر را تکمیل کنید
           </p>
-
           <div className="flex justify-center">
             <div className="lg:flex lg:justify-center ml-3">
               {/* select_1 */}

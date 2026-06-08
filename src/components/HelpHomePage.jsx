@@ -11,6 +11,7 @@ const itemWork = [
       "در میان صدها آگهی که روزانه به وب‌سایت سقفینو افزوده می‌شود، با استفاده از بیش از ۲۸ فیلتر کاربردی تلاش کرده‌ایم خانه‌ای که در جست‌وجوی آن هستید را هر چه سریعتر پیدا و اجاره کنید.",
     btnWork: "اجاره خانه",
   },
+
   {
     id: 2,
     picItem: HomeKharid,
@@ -19,6 +20,7 @@ const itemWork = [
       "بالای ۱ میلیون آگهی فروش در وب‌سایت سقفینو وجود دارد علاوه بر آگهی‌های فراوان با به‌کارگیری املاک و مشاورین متخصص در هر شهر، تلاش می‌کنیم در تجربه لذت یک خرید آسان با شما سهیم باشد.",
     btnWork: "خرید خانه",
   },
+
   {
     id: 3,
     picItem: HomeAgahi,
@@ -42,8 +44,7 @@ function DetailHomePage() {
               return (
                 <div
                   key={item.id}
-                  className=" text-center lg:w-[392px] lg:h-[511px]  border border-Gr4 bg-Gr2 rounded-2xl relative"
-                >
+                  className=" text-center lg:w-[392px] lg:h-[511px]  border border-Gr4 bg-Gr2 rounded-2xl relative">
                   <div className="lg:mx-14 lg:my-8 mx-20 my-6 w-[181px] h-[93px] lg:w-[280px] lg:h-[145px]">
                     <img src={item.picItem} />
                   </div>
