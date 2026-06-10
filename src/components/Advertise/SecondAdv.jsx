@@ -6,59 +6,45 @@ import Stepper_2 from "../../assets/images/Advertisement/Stepper_2.svg"
 import arrow_3 from "../../assets/images/Advertisement/arrow_3.svg"
 import "../App.css"
 
-export const transactiontypes = [
+export const TRANSACTIONTYPES = [
   { value: "رهن و اجاره", label: "رهن و اجاره" },
   { value: "خرید", label: "خرید" },
 ]
-export const propertytypes = [
+export const PROPERTYTYPES = [
   { value: "تجاری", label: "تجاری" },
   { value: "مسکونی", label: "مسکونی" },
 ]
 
+const REQUIRED = "فیلد اجباری است!"
+const INPUT_BASE = "bg-white input-style"
+
 function SecondAdv() {
-  //use react-hook-form
+  const navigate = useNavigate()
+  const { page2Data, setPage2Data } = usePage2Store()
+
   const {
     register,
     handleSubmit,
-    setValue,
     watch,
     formState: { errors },
-  } = useForm({})
-  //use zustand
-  const { page2Data, setPage2Data } = usePage2Store()
+  } = useForm({ defaultValues: page2Data })
 
-  // نظارت بر تغییرات تمامی فیلدها
   const watchedValues = watch()
-  const inputClass = (field) => {
-    const isEmpty = watchedValues[field] === ""
-    return `bg-white input-style ${
-      isEmpty ? "border border-Gr7" : "border border-Gr11"
-    }`
-  }
+  const inputClass = (field) =>
+    `${INPUT_BASE} ${watchedValues[field] ? "border border-Gr11" : "border border-Gr7"}`
 
-  useEffect(() => {
-    setValue("Convertible", page2Data.Convertible)
-    setValue("transactiontype", page2Data.transactiontype)
-    setValue("propertytype", page2Data.propertytype)
-    setValue("mortgage", page2Data.mortgage)
-    setValue("rent", page2Data.rent)
-  }, [setValue, page2Data])
+  const onSubmit = (data) => {
+    const storedData = JSON.parse(localStorage.getItem("page2Data") ?? "null")
+    const hasChanged = JSON.stringify(data) !== JSON.stringify(storedData)
 
-  const onSubmit = (page2Data) => {
-    // localStorage دریافت اطلاعات قبلی از
-    const storedData = JSON.parse(localStorage.getItem("page2Data"))
-    // مقایسه اطلاعات جدید با اطلاعات قبلی
-    if (JSON.stringify(page2Data) !== JSON.stringify(storedData)) {
-      setPage2Data(page2Data)
-      console.log("Page 2 Data Submitted:", page2Data)
-      //toast.success
-      toast.success("اطلاعات باموفقیت ثبت شد", {
+    if (hasChanged) {
+      setPage2Data(data)
+      toast.success("اطلاعات با موفقیت ثبت شد", {
         duration: 4000,
         icon: "✔️",
         className: "success-toast",
       })
     } else {
-      //toast.error
       toast.error("اطلاعات تغییر نکرد!", {
         duration: 4000,
         icon: "⚠️",
@@ -67,12 +53,6 @@ function SecondAdv() {
     }
 
     navigate("/third-advertisement")
-  }
-
-  // Go-PreviousPage
-  const navigate = useNavigate()
-  const handleClickPreviousPage = () => {
-    navigate("/first-advertisement")
   }
 
   return (
@@ -101,25 +81,20 @@ function SecondAdv() {
                 <select
                   id="transactiontype"
                   {...register("transactiontype", {
-                    // onChange: handleChange("transactiontype"),
-                    required: true,
+                    required: REQUIRED,
                   })}
                   className={inputClass("transactiontype")}>
                   <option value="" disabled>
                     نوع معامله خود را انتخاب کنید
                   </option>
-                  {transactiontypes.map((transactiontype) => (
-                    <option
-                      className="font-semibold"
-                      key={transactiontype.value}>
-                      {transactiontype.label}
+                  {TRANSACTIONTYPES.map(({ value, label }) => (
+                    <option key={value} value={value} className="font-semibold">
+                      {label}
                     </option>
                   ))}
                 </select>
                 {errors.transactiontype && (
-                  <span className="text-red-500 font-medium m-1">
-                    فیلد اجباری است!
-                  </span>
+                  <span>{errors.transactiontype.message}</span>
                 )}
               </div>
 
@@ -133,23 +108,20 @@ function SecondAdv() {
                 <select
                   id="propertytype"
                   {...register("propertytype", {
-                    // onChange: handleChange("propertytype"),
-                    required: true,
+                    required: REQUIRED,
                   })}
                   className={inputClass("propertytype")}>
                   <option value="" disabled>
                     نوع ملک خود را انتخاب کنید
                   </option>
-                  {propertytypes.map((propertytype) => (
-                    <option className="font-semibold" key={propertytype.value}>
-                      {propertytype.label}
+                  {PROPERTYTYPES.map(({ value, label }) => (
+                    <option className="font-semibold" key={value} value={value}>
+                      {label}
                     </option>
                   ))}
                 </select>
                 {errors.propertytype && (
-                  <span className="text-red-500 font-medium m-1">
-                    فیلد اجباری است!
-                  </span>
+                  <span>{errors.propertytype.message}</span>
                 )}
               </div>
             </div>
@@ -168,9 +140,9 @@ function SecondAdv() {
                   id="mortgage"
                   type="text"
                   {...register("mortgage", {
-                    required: "فیلد اجباری است!",
+                    required: REQUIRED,
                     // validate: (value) =>
-                    //   !isNaN(value) || "فقط اعداد مجاز هستند",
+                    // !isNaN(value) || "فقط اعداد مجاز هستند",
                   })}
                   className={inputClass("mortgage")}
                   placeholder="مثلاً ۵۰ میلیون تومان"
@@ -193,7 +165,7 @@ function SecondAdv() {
                   id="rent"
                   type="text"
                   {...register("rent", {
-                    required: "فیلد اجباری است!",
+                    required: REQUIRED,
                     // validate: (value) =>
                     //   !isNaN(value) || "فقط اعداد مجاز هستند",
                   })}
@@ -224,11 +196,12 @@ function SecondAdv() {
             </div>
           </div>
 
-          {/* buttons */}
+          {/* Buttons */}
           <div className="mb-16 mt-10 lg:mt-24 flex justify-center">
             <button
+              type="button"
               className="btn--primary py-0 text-primary border-primary font-medium w-24 h-8 lg:w-48 lg:h-12"
-              onClick={handleClickPreviousPage}>
+              onClick={() => navigate("/first-advertisement")}>
               قبلی
             </button>
             <button

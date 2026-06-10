@@ -34,7 +34,6 @@ function FirstAdv() {
   } = useForm({ defaultValues: page1Data }) // جای useEffect + setValue رو گرفت
 
   const watchedValues = watch()
-
   const inputClass = (field) =>
     `${INPUT_BASE} ${watchedValues[field] ? "border border-Gr11" : "border border-Gr7"}`
 
