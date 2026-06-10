@@ -8,7 +8,7 @@ import ThirdAdvertisement from "./pages/ThirdAdvertisement"
 
 function App() {
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
       <Toaster />
       <Routes>
         {/* homepage */}
