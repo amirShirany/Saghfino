@@ -1,5 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { usePage2Store } from "../../store/useFormStore"

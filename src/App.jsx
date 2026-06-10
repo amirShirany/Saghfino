@@ -8,23 +8,18 @@ import ThirdAdvertisement from "./pages/ThirdAdvertisement"
 
 function App() {
   return (
-    <div>
-      <div className="flex flex-col justify-center items-center">
-        <Toaster />
-        <Routes>
-          {/* homepage */}
-          <Route path="/" element={<HomeLayout />}>
-            <Route index element={<Homepage />} />
-          </Route>
+    <div className="flex flex-col justify-center items-center">
+      <Toaster />
+      <Routes>
+        {/* homepage */}
+        <Route path="/" element={<HomeLayout />}>
+          <Route index element={<Homepage />} />
+        </Route>
 
-          <Route path="/first-advertisement" element={<FirstAdvertisement />} />
-          <Route
-            path="/second-advertisement"
-            element={<SecondAdvertisement />}
-          />
-          <Route path="/third-advertisement" element={<ThirdAdvertisement />} />
-        </Routes>
-      </div>
+        <Route path="/first-advertisement" element={<FirstAdvertisement />} />
+        <Route path="/second-advertisement" element={<SecondAdvertisement />} />
+        <Route path="/third-advertisement" element={<ThirdAdvertisement />} />
+      </Routes>
     </div>
   )
 }

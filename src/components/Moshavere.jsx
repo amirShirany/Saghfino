@@ -38,8 +38,7 @@ function Moshavere() {
               return (
                 <div
                   key={item.id}
-                  className="w-[156px] h-auto lg:w-[288px] text-center boxShadow bg-white rounded-lg m-1"
-                >
+                  className="w-[156px] h-auto lg:w-[288px] text-center boxShadow bg-white rounded-lg m-1">
                   <div className="flex justify-center">
                     <img
                       className="rounded-t-lg mx-auto mt-4"

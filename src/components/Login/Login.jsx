@@ -171,6 +171,8 @@ function Login({
                     <input
                       type="text"
                       placeholder="---------09"
+                      maxLength={11}
+                      // disabled={!phone.startsWith("09") || phone.length < 11}
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="w-80 mt-10 py-1 text-xl border border-bColorInput rounded-lg shadowInput text-center"
